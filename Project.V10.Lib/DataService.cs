@@ -26,7 +26,7 @@ namespace Project.V10.Lib
             {
                 Key = key;
                 Value = value;
-                Bitmap = null;
+                Bitmap = null; 
             }
             public KVRowsImage(string key, Bitmap bitmap)
             {
@@ -34,6 +34,24 @@ namespace Project.V10.Lib
                 Value = null;
                 Bitmap = bitmap;
             }
+            public KVRowsImage(string key, string value, Bitmap bitmap)
+            {
+                Key = key;
+                Value = value;
+                Bitmap = bitmap;
+            }
+            public static string[] Keys(KVRowsImage[] array)
+            {
+                return Array.ConvertAll(array, x => x.Key);
+            }
+        }
+        public List<KVRowsImage> AddBitmapFromPath(List<KVRowsImage> imageList, string imageKey, string imagePath)
+        {
+            using (Bitmap image = new Bitmap(imagePath))
+            {
+                imageList.Add(new KVRowsImage(imageKey, imagePath, image));
+            }
+            return imageList;
         }
     }
 }

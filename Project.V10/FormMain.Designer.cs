@@ -44,42 +44,43 @@ namespace Project.V10
             this.Summ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LuxaryPoints = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PictureAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.pictureBoxProducts = new System.Windows.Forms.PictureBox();
+            this.chartProducts = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.openFileDialogTable = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogTable = new System.Windows.Forms.SaveFileDialog();
             this.bindingNavigatorTable = new System.Windows.Forms.BindingNavigator(this.components);
+            this.bindingNavigatorAddNewRow = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
+            this.bindingNavigatorDeleteRow = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.bindingNavigatorPositionItem = new System.Windows.Forms.ToolStripTextBox();
             this.bindingNavigatorSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.directorySearcherTable = new System.DirectoryServices.DirectorySearcher();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.buttonPictureVisible = new System.Windows.Forms.Button();
             this.buttonPictureNotVisible = new System.Windows.Forms.Button();
             this.buttonChart = new System.Windows.Forms.Button();
-            this.bindingNavigatorAddNewRow = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorDeleteRow = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.pictureBoxMagnifier = new System.Windows.Forms.PictureBox();
             this.buttonHelp = new System.Windows.Forms.Button();
             this.buttonSaveFile = new System.Windows.Forms.Button();
             this.buttonOpenFile = new System.Windows.Forms.Button();
-            this.pictureBoxProducts = new System.Windows.Forms.PictureBox();
+            this.openFileDialogPicture = new System.Windows.Forms.OpenFileDialog();
             this.groupBoxGridAndPic.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerGridAndPic)).BeginInit();
             this.splitContainerGridAndPic.Panel1.SuspendLayout();
             this.splitContainerGridAndPic.Panel2.SuspendLayout();
             this.splitContainerGridAndPic.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrders)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducts)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartProducts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigatorTable)).BeginInit();
             this.bindingNavigatorTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMagnifier)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducts)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxGridAndPic
@@ -110,7 +111,7 @@ namespace Project.V10
             // splitContainerGridAndPic.Panel2
             // 
             this.splitContainerGridAndPic.Panel2.Controls.Add(this.pictureBoxProducts);
-            this.splitContainerGridAndPic.Panel2.Controls.Add(this.chart1);
+            this.splitContainerGridAndPic.Panel2.Controls.Add(this.chartProducts);
             this.splitContainerGridAndPic.Panel2MinSize = 350;
             this.splitContainerGridAndPic.Size = new System.Drawing.Size(898, 350);
             this.splitContainerGridAndPic.SplitterDistance = 540;
@@ -182,21 +183,35 @@ namespace Project.V10
             this.PictureAddress.Visible = false;
             this.PictureAddress.Width = 103;
             // 
-            // chart1
+            // pictureBoxProducts
+            // 
+            this.pictureBoxProducts.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxProducts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxProducts.Image = global::Project.V10.Properties.Resources.picture_add;
+            this.pictureBoxProducts.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxProducts.Name = "pictureBoxProducts";
+            this.pictureBoxProducts.Size = new System.Drawing.Size(350, 350);
+            this.pictureBoxProducts.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBoxProducts.TabIndex = 0;
+            this.pictureBoxProducts.TabStop = false;
+            this.pictureBoxProducts.Click += new System.EventHandler(this.pictureBoxProducts_Click);
+            // 
+            // chartProducts
             // 
             chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            this.chartProducts.ChartAreas.Add(chartArea1);
+            this.chartProducts.Dock = System.Windows.Forms.DockStyle.Fill;
             legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(0, 0);
-            this.chart1.Name = "chart1";
+            this.chartProducts.Legends.Add(legend1);
+            this.chartProducts.Location = new System.Drawing.Point(0, 0);
+            this.chartProducts.Name = "chartProducts";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(350, 350);
-            this.chart1.TabIndex = 1;
-            this.chart1.Text = "chart1";
+            this.chartProducts.Series.Add(series1);
+            this.chartProducts.Size = new System.Drawing.Size(350, 350);
+            this.chartProducts.TabIndex = 1;
+            this.chartProducts.Text = "chart1";
             // 
             // openFileDialogTable
             // 
@@ -233,84 +248,6 @@ namespace Project.V10
             this.bindingNavigatorTable.Size = new System.Drawing.Size(263, 20);
             this.bindingNavigatorTable.TabIndex = 1;
             // 
-            // bindingNavigatorCountItem
-            // 
-            this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(43, 17);
-            this.bindingNavigatorCountItem.Text = "для {0}";
-            this.bindingNavigatorCountItem.ToolTipText = "Общее число элементов";
-            // 
-            // bindingNavigatorSeparator
-            // 
-            this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 20);
-            // 
-            // bindingNavigatorPositionItem
-            // 
-            this.bindingNavigatorPositionItem.AccessibleName = "Положение";
-            this.bindingNavigatorPositionItem.AutoSize = false;
-            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
-            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
-            this.bindingNavigatorPositionItem.Text = "0";
-            this.bindingNavigatorPositionItem.ToolTipText = "Текущее положение";
-            // 
-            // bindingNavigatorSeparator1
-            // 
-            this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
-            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 20);
-            // 
-            // bindingNavigatorSeparator2
-            // 
-            this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
-            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 20);
-            // 
-            // directorySearcherTable
-            // 
-            this.directorySearcherTable.ClientTimeout = System.TimeSpan.Parse("-00:00:01");
-            this.directorySearcherTable.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
-            this.directorySearcherTable.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
-            // 
-            // textBoxSearch
-            // 
-            this.textBoxSearch.BackColor = System.Drawing.SystemColors.Control;
-            this.textBoxSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxSearch.Location = new System.Drawing.Point(302, 451);
-            this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(253, 20);
-            this.textBoxSearch.TabIndex = 6;
-            // 
-            // buttonPictureVisible
-            // 
-            this.buttonPictureVisible.Location = new System.Drawing.Point(563, 451);
-            this.buttonPictureVisible.Name = "buttonPictureVisible";
-            this.buttonPictureVisible.Size = new System.Drawing.Size(75, 23);
-            this.buttonPictureVisible.TabIndex = 7;
-            this.buttonPictureVisible.Text = "Картинка";
-            this.buttonPictureVisible.UseVisualStyleBackColor = true;
-            this.buttonPictureVisible.Click += new System.EventHandler(this.buttonPictureVisible_Click);
-            // 
-            // buttonPictureNotVisible
-            // 
-            this.buttonPictureNotVisible.Location = new System.Drawing.Point(644, 451);
-            this.buttonPictureNotVisible.Name = "buttonPictureNotVisible";
-            this.buttonPictureNotVisible.Size = new System.Drawing.Size(75, 23);
-            this.buttonPictureNotVisible.TabIndex = 7;
-            this.buttonPictureNotVisible.Text = "График";
-            this.buttonPictureNotVisible.UseVisualStyleBackColor = true;
-            this.buttonPictureNotVisible.Click += new System.EventHandler(this.buttonPictureNotVisible_Click);
-            // 
-            // buttonChart
-            // 
-            this.buttonChart.Enabled = false;
-            this.buttonChart.Location = new System.Drawing.Point(725, 451);
-            this.buttonChart.Name = "buttonChart";
-            this.buttonChart.Size = new System.Drawing.Size(188, 23);
-            this.buttonChart.TabIndex = 7;
-            this.buttonChart.Text = "Нарисовать график";
-            this.buttonChart.UseVisualStyleBackColor = true;
-            this.buttonChart.Click += new System.EventHandler(this.buttonPictureNotVisible_Click);
-            // 
             // bindingNavigatorAddNewRow
             // 
             this.bindingNavigatorAddNewRow.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -319,6 +256,14 @@ namespace Project.V10
             this.bindingNavigatorAddNewRow.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorAddNewRow.Size = new System.Drawing.Size(23, 17);
             this.bindingNavigatorAddNewRow.Text = "Добавить Строку";
+            this.bindingNavigatorAddNewRow.Click += new System.EventHandler(this.bindingNavigatorAddNewRow_Click);
+            // 
+            // bindingNavigatorCountItem
+            // 
+            this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(43, 17);
+            this.bindingNavigatorCountItem.Text = "для {0}";
+            this.bindingNavigatorCountItem.ToolTipText = "Общее число элементов";
             // 
             // bindingNavigatorDeleteRow
             // 
@@ -347,6 +292,26 @@ namespace Project.V10
             this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 17);
             this.bindingNavigatorMovePreviousItem.Text = "Переместить назад";
             // 
+            // bindingNavigatorSeparator
+            // 
+            this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
+            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 20);
+            // 
+            // bindingNavigatorPositionItem
+            // 
+            this.bindingNavigatorPositionItem.AccessibleName = "Положение";
+            this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
+            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
+            this.bindingNavigatorPositionItem.Text = "0";
+            this.bindingNavigatorPositionItem.ToolTipText = "Текущее положение";
+            // 
+            // bindingNavigatorSeparator1
+            // 
+            this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
+            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 20);
+            // 
             // bindingNavigatorMoveNextItem
             // 
             this.bindingNavigatorMoveNextItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -364,6 +329,61 @@ namespace Project.V10
             this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 17);
             this.bindingNavigatorMoveLastItem.Text = "Переместить в конец";
+            // 
+            // bindingNavigatorSeparator2
+            // 
+            this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
+            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 20);
+            // 
+            // directorySearcherTable
+            // 
+            this.directorySearcherTable.ClientTimeout = System.TimeSpan.Parse("-00:00:01");
+            this.directorySearcherTable.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
+            this.directorySearcherTable.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
+            // 
+            // textBoxSearch
+            // 
+            this.textBoxSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.textBoxSearch.BackColor = System.Drawing.SystemColors.Control;
+            this.textBoxSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxSearch.Location = new System.Drawing.Point(302, 451);
+            this.textBoxSearch.Name = "textBoxSearch";
+            this.textBoxSearch.Size = new System.Drawing.Size(253, 20);
+            this.textBoxSearch.TabIndex = 6;
+            // 
+            // buttonPictureVisible
+            // 
+            this.buttonPictureVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonPictureVisible.Location = new System.Drawing.Point(563, 451);
+            this.buttonPictureVisible.Name = "buttonPictureVisible";
+            this.buttonPictureVisible.Size = new System.Drawing.Size(75, 23);
+            this.buttonPictureVisible.TabIndex = 7;
+            this.buttonPictureVisible.Text = "Картинка";
+            this.buttonPictureVisible.UseVisualStyleBackColor = true;
+            this.buttonPictureVisible.Click += new System.EventHandler(this.buttonPictureVisible_Click);
+            // 
+            // buttonPictureNotVisible
+            // 
+            this.buttonPictureNotVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonPictureNotVisible.Location = new System.Drawing.Point(644, 451);
+            this.buttonPictureNotVisible.Name = "buttonPictureNotVisible";
+            this.buttonPictureNotVisible.Size = new System.Drawing.Size(75, 23);
+            this.buttonPictureNotVisible.TabIndex = 7;
+            this.buttonPictureNotVisible.Text = "График";
+            this.buttonPictureNotVisible.UseVisualStyleBackColor = true;
+            this.buttonPictureNotVisible.Click += new System.EventHandler(this.buttonPictureNotVisible_Click);
+            // 
+            // buttonChart
+            // 
+            this.buttonChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonChart.Enabled = false;
+            this.buttonChart.Location = new System.Drawing.Point(725, 451);
+            this.buttonChart.Name = "buttonChart";
+            this.buttonChart.Size = new System.Drawing.Size(188, 23);
+            this.buttonChart.TabIndex = 7;
+            this.buttonChart.Text = "Нарисовать график";
+            this.buttonChart.UseVisualStyleBackColor = true;
+            this.buttonChart.Click += new System.EventHandler(this.buttonPictureNotVisible_Click);
             // 
             // pictureBoxMagnifier
             // 
@@ -407,17 +427,9 @@ namespace Project.V10
             this.buttonOpenFile.TabIndex = 0;
             this.buttonOpenFile.UseVisualStyleBackColor = true;
             // 
-            // pictureBoxProducts
+            // openFileDialogPicture
             // 
-            this.pictureBoxProducts.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxProducts.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxProducts.Image = global::Project.V10.Properties.Resources.picture_add;
-            this.pictureBoxProducts.Location = new System.Drawing.Point(0, 0);
-            this.pictureBoxProducts.Name = "pictureBoxProducts";
-            this.pictureBoxProducts.Size = new System.Drawing.Size(350, 350);
-            this.pictureBoxProducts.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBoxProducts.TabIndex = 0;
-            this.pictureBoxProducts.TabStop = false;
+            this.openFileDialogPicture.FileName = "openFileDialog1";
             // 
             // FormMain
             // 
@@ -444,12 +456,12 @@ namespace Project.V10
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerGridAndPic)).EndInit();
             this.splitContainerGridAndPic.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrders)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducts)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartProducts)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigatorTable)).EndInit();
             this.bindingNavigatorTable.ResumeLayout(false);
             this.bindingNavigatorTable.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMagnifier)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducts)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -481,7 +493,7 @@ namespace Project.V10
         private System.DirectoryServices.DirectorySearcher directorySearcherTable;
         private System.Windows.Forms.PictureBox pictureBoxMagnifier;
         private System.Windows.Forms.TextBox textBoxSearch;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartProducts;
         private System.Windows.Forms.Button buttonPictureVisible;
         private System.Windows.Forms.Button buttonPictureNotVisible;
         private System.Windows.Forms.Button buttonChart;
@@ -492,6 +504,7 @@ namespace Project.V10
         private System.Windows.Forms.DataGridViewTextBoxColumn Summ;
         private System.Windows.Forms.DataGridViewTextBoxColumn LuxaryPoints;
         private System.Windows.Forms.DataGridViewTextBoxColumn PictureAddress;
+        private System.Windows.Forms.OpenFileDialog openFileDialogPicture;
     }
 }
 
