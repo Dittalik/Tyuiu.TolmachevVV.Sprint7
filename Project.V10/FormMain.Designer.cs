@@ -438,7 +438,6 @@ namespace Project.V10
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sprint 7 | V10 | Tolmachev V. V.";
-            this.Load += new System.EventHandler(this.FormMain_Load);
             this.groupBoxGridAndPic.ResumeLayout(false);
             this.splitContainerGridAndPic.Panel1.ResumeLayout(false);
             this.splitContainerGridAndPic.Panel2.ResumeLayout(false);
