@@ -10,48 +10,37 @@ namespace Project.V10.Lib
 {
     public class DataService
     {
-        public bool IsDefaultImage(Image image, int defaultImageWidth, int defaultImageHeight)
+        public bool IsDefaultImage(Image image, Image defaultImage)
         {
-            return (image.Width == defaultImageWidth && image.Height == defaultImageHeight);
+            return image == defaultImage;
         }
 
         public struct KVRowsImage
         {
-            public string Key { get; set; }
-            public string Value { get; set; }
+            public int Key { get; set; }
+            public string Path { get; set; }
 
             public Bitmap Bitmap { get; set; }
 
-            public KVRowsImage(string key, string value)
+            public KVRowsImage(int key, string path)
             {
                 Key = key;
-                Value = value;
-                Bitmap = null; 
+                Path = path;
+                using(Bitmap bitmap = new Bitmap(path))
+                {
+                    Bitmap = bitmap;
+                } 
             }
-            public KVRowsImage(string key, Bitmap bitmap)
+            public KVRowsImage(int key, Bitmap bitmap)
             {
                 Key = key;
-                Value = null;
+                Path = null;
                 Bitmap = bitmap;
             }
-            public KVRowsImage(string key, string value, Bitmap bitmap)
+            public static int[] Keys(IEnumerable<KVRowsImage> images)
             {
-                Key = key;
-                Value = value;
-                Bitmap = bitmap;
+                return images.Select(x => x.Key).ToArray();
             }
-            public static string[] Keys(KVRowsImage[] array)
-            {
-                return Array.ConvertAll(array, x => x.Key);
-            }
-        }
-        public List<KVRowsImage> AddBitmapFromPath(List<KVRowsImage> imageList, string imageKey, string imagePath)
-        {
-            using (Bitmap image = new Bitmap(imagePath))
-            {
-                imageList.Add(new KVRowsImage(imageKey, imagePath, image));
-            }
-            return imageList;
         }
     }
 }

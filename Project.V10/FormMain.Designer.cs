@@ -37,13 +37,6 @@ namespace Project.V10
             this.groupBoxGridAndPic = new System.Windows.Forms.GroupBox();
             this.splitContainerGridAndPic = new System.Windows.Forms.SplitContainer();
             this.dataGridViewOrders = new System.Windows.Forms.DataGridView();
-            this.Client = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Product = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Summ = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LuxaryPoints = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PictureAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pictureBoxProducts = new System.Windows.Forms.PictureBox();
             this.chartProducts = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.openFileDialogTable = new System.Windows.Forms.OpenFileDialog();
@@ -70,6 +63,14 @@ namespace Project.V10
             this.buttonSaveFile = new System.Windows.Forms.Button();
             this.buttonOpenFile = new System.Windows.Forms.Button();
             this.openFileDialogPicture = new System.Windows.Forms.OpenFileDialog();
+            this.Client = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Product = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Summ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LuxaryPoints = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PictureAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RowAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBoxGridAndPic.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerGridAndPic)).BeginInit();
             this.splitContainerGridAndPic.Panel1.SuspendLayout();
@@ -120,6 +121,8 @@ namespace Project.V10
             // 
             // dataGridViewOrders
             // 
+            this.dataGridViewOrders.AllowUserToAddRows = false;
+            this.dataGridViewOrders.AllowUserToDeleteRows = false;
             this.dataGridViewOrders.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dataGridViewOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewOrders.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -129,59 +132,14 @@ namespace Project.V10
             this.ProductCount,
             this.Summ,
             this.LuxaryPoints,
-            this.PictureAddress});
+            this.PictureAddress,
+            this.RowAddress});
             this.dataGridViewOrders.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewOrders.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewOrders.Name = "dataGridViewOrders";
             this.dataGridViewOrders.Size = new System.Drawing.Size(540, 350);
             this.dataGridViewOrders.TabIndex = 0;
             this.dataGridViewOrders.SelectionChanged += new System.EventHandler(this.dataGridViewOrders_SelectionChanged);
-            // 
-            // Client
-            // 
-            this.Client.HeaderText = "Заказчик:";
-            this.Client.Name = "Client";
-            this.Client.Width = 83;
-            // 
-            // Product
-            // 
-            this.Product.HeaderText = "Заказ:";
-            this.Product.Name = "Product";
-            this.Product.Width = 66;
-            // 
-            // Price
-            // 
-            this.Price.HeaderText = "Цена (т. руб):";
-            this.Price.Name = "Price";
-            this.Price.Width = 98;
-            // 
-            // ProductCount
-            // 
-            this.ProductCount.HeaderText = "Количество:";
-            this.ProductCount.Name = "ProductCount";
-            this.ProductCount.Width = 94;
-            // 
-            // Summ
-            // 
-            this.Summ.HeaderText = "Стоимость";
-            this.Summ.Name = "Summ";
-            this.Summ.ReadOnly = true;
-            this.Summ.Width = 87;
-            // 
-            // LuxaryPoints
-            // 
-            this.LuxaryPoints.HeaderText = "Лакшери:";
-            this.LuxaryPoints.Name = "LuxaryPoints";
-            this.LuxaryPoints.ReadOnly = true;
-            this.LuxaryPoints.Width = 81;
-            // 
-            // PictureAddress
-            // 
-            this.PictureAddress.HeaderText = "PictureAddress";
-            this.PictureAddress.Name = "PictureAddress";
-            this.PictureAddress.ReadOnly = true;
-            this.PictureAddress.Visible = false;
-            this.PictureAddress.Width = 103;
             // 
             // pictureBoxProducts
             // 
@@ -431,6 +389,59 @@ namespace Project.V10
             // 
             this.openFileDialogPicture.FileName = "openFileDialog1";
             // 
+            // Client
+            // 
+            this.Client.HeaderText = "Заказчик:";
+            this.Client.Name = "Client";
+            this.Client.Width = 83;
+            // 
+            // Product
+            // 
+            this.Product.HeaderText = "Заказ:";
+            this.Product.Name = "Product";
+            this.Product.Width = 66;
+            // 
+            // Price
+            // 
+            this.Price.HeaderText = "Цена (т. руб):";
+            this.Price.Name = "Price";
+            this.Price.Width = 98;
+            // 
+            // ProductCount
+            // 
+            this.ProductCount.HeaderText = "Количество:";
+            this.ProductCount.Name = "ProductCount";
+            this.ProductCount.Width = 94;
+            // 
+            // Summ
+            // 
+            this.Summ.HeaderText = "Стоимость";
+            this.Summ.Name = "Summ";
+            this.Summ.ReadOnly = true;
+            this.Summ.Width = 87;
+            // 
+            // LuxaryPoints
+            // 
+            this.LuxaryPoints.HeaderText = "Лакшери:";
+            this.LuxaryPoints.Name = "LuxaryPoints";
+            this.LuxaryPoints.ReadOnly = true;
+            this.LuxaryPoints.Width = 81;
+            // 
+            // PictureAddress
+            // 
+            this.PictureAddress.HeaderText = "PictureAddress";
+            this.PictureAddress.Name = "PictureAddress";
+            this.PictureAddress.ReadOnly = true;
+            this.PictureAddress.Visible = false;
+            this.PictureAddress.Width = 103;
+            // 
+            // RowAddress
+            // 
+            this.RowAddress.HeaderText = "RowAddress";
+            this.RowAddress.Name = "RowAddress";
+            this.RowAddress.ReadOnly = true;
+            this.RowAddress.Width = 92;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -497,6 +508,7 @@ namespace Project.V10
         private System.Windows.Forms.Button buttonPictureVisible;
         private System.Windows.Forms.Button buttonPictureNotVisible;
         private System.Windows.Forms.Button buttonChart;
+        private System.Windows.Forms.OpenFileDialog openFileDialogPicture;
         private System.Windows.Forms.DataGridViewTextBoxColumn Client;
         private System.Windows.Forms.DataGridViewTextBoxColumn Product;
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
@@ -504,7 +516,7 @@ namespace Project.V10
         private System.Windows.Forms.DataGridViewTextBoxColumn Summ;
         private System.Windows.Forms.DataGridViewTextBoxColumn LuxaryPoints;
         private System.Windows.Forms.DataGridViewTextBoxColumn PictureAddress;
-        private System.Windows.Forms.OpenFileDialog openFileDialogPicture;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RowAddress;
     }
 }
 
