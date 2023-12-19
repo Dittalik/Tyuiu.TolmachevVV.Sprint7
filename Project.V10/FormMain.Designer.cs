@@ -63,6 +63,7 @@ namespace Project.V10
             this.buttonSaveFile = new System.Windows.Forms.Button();
             this.buttonOpenFile = new System.Windows.Forms.Button();
             this.openFileDialogPicture = new System.Windows.Forms.OpenFileDialog();
+            this.RowAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Client = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Product = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -70,7 +71,6 @@ namespace Project.V10
             this.Summ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LuxaryPoints = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PictureAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RowAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBoxGridAndPic.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerGridAndPic)).BeginInit();
             this.splitContainerGridAndPic.Panel1.SuspendLayout();
@@ -126,14 +126,14 @@ namespace Project.V10
             this.dataGridViewOrders.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dataGridViewOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewOrders.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.RowAddress,
             this.Client,
             this.Product,
             this.Price,
             this.ProductCount,
             this.Summ,
             this.LuxaryPoints,
-            this.PictureAddress,
-            this.RowAddress});
+            this.PictureAddress});
             this.dataGridViewOrders.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewOrders.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewOrders.Name = "dataGridViewOrders";
@@ -231,6 +231,7 @@ namespace Project.V10
             this.bindingNavigatorDeleteRow.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorDeleteRow.Size = new System.Drawing.Size(23, 17);
             this.bindingNavigatorDeleteRow.Text = "Удалить Строку";
+            this.bindingNavigatorDeleteRow.Click += new System.EventHandler(this.bindingNavigatorDeleteRow_Click);
             // 
             // bindingNavigatorMoveFirstItem
             // 
@@ -389,6 +390,14 @@ namespace Project.V10
             // 
             this.openFileDialogPicture.FileName = "openFileDialog1";
             // 
+            // RowAddress
+            // 
+            this.RowAddress.HeaderText = "RowAddress";
+            this.RowAddress.Name = "RowAddress";
+            this.RowAddress.ReadOnly = true;
+            this.RowAddress.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.RowAddress.Width = 73;
+            // 
             // Client
             // 
             this.Client.HeaderText = "Заказчик:";
@@ -434,13 +443,6 @@ namespace Project.V10
             this.PictureAddress.ReadOnly = true;
             this.PictureAddress.Visible = false;
             this.PictureAddress.Width = 103;
-            // 
-            // RowAddress
-            // 
-            this.RowAddress.HeaderText = "RowAddress";
-            this.RowAddress.Name = "RowAddress";
-            this.RowAddress.ReadOnly = true;
-            this.RowAddress.Width = 92;
             // 
             // FormMain
             // 
@@ -509,6 +511,7 @@ namespace Project.V10
         private System.Windows.Forms.Button buttonPictureNotVisible;
         private System.Windows.Forms.Button buttonChart;
         private System.Windows.Forms.OpenFileDialog openFileDialogPicture;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RowAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn Client;
         private System.Windows.Forms.DataGridViewTextBoxColumn Product;
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
@@ -516,7 +519,6 @@ namespace Project.V10
         private System.Windows.Forms.DataGridViewTextBoxColumn Summ;
         private System.Windows.Forms.DataGridViewTextBoxColumn LuxaryPoints;
         private System.Windows.Forms.DataGridViewTextBoxColumn PictureAddress;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RowAddress;
     }
 }
 

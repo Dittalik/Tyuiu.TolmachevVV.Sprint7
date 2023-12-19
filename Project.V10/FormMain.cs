@@ -17,16 +17,16 @@ namespace Project.V10
         private BindingSource bindingSource = new BindingSource();
         private DataService service = new DataService();
 
-        private DataService.KVRowsImage[] defaultImages = new DataService.KVRowsImage[5];
         private Bitmap defaultPicture = Properties.Resources.picture_add;
-        private int[] defaultKeys;
 
-        private List<DataService.KVRowsImage> imageList = new List<DataService.KVRowsImage>();
+
+        //private DataService.KVRowsImage[] imageList = new DataService.KVRowsImage[];
+        List<TableElement> tableElements = new List<TableElement>();
+        List<DataService.KVRowsImage> imageList = new List<DataService.KVRowsImage>();
         public FormMain()
         {
             InitializeComponent();
             InitializeFormData();
-            InitializdeDefaultImages();
 
             openFileDialogTable.Filter = "Значения разделённые точками(*.csv)|*.csv|Все файлы(*.*)|*.*";
             openFileDialogPicture.Filter = "Файлы изображений(*.png,*.jpg, *.gif)|*.png;*.jpg;*.gif|Все файлы(*.*)|*.*";
@@ -38,77 +38,69 @@ namespace Project.V10
         private void InitializeFormData()
         {
             dataGridViewOrders.RowCount = 5;
-            pictureBoxProducts.SizeMode = PictureBoxSizeMode.Zoom;
+            //pictureBoxProducts.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxProducts.Image = Properties.Resources.Poezd_Yauza;
 
-
-            dataGridViewOrders.Rows[0].Cells[0].Value = "ООО \"Метрополитен\"";
-            dataGridViewOrders.Rows[0].Cells[1].Value = "Локомотив \"Яуза\"";
-            dataGridViewOrders.Rows[0].Cells[2].Value = 28_710;
-            dataGridViewOrders.Rows[0].Cells[3].Value = 6;
-            dataGridViewOrders.Rows[0].Cells[7].Value = -1;
-
-            dataGridViewOrders.Rows[1].Cells[0].Value = "ООО \"Метрополитен\"";
-            dataGridViewOrders.Rows[1].Cells[1].Value = "Локомотив 81-717";
-            dataGridViewOrders.Rows[1].Cells[2].Value = 19_320;
-            dataGridViewOrders.Rows[1].Cells[3].Value = 8;
-            dataGridViewOrders.Rows[1].Cells[7].Value = -2;
-
-
-            dataGridViewOrders.Rows[2].Cells[0].Value = "Гугера Б. А.";
-            dataGridViewOrders.Rows[2].Cells[1].Value = "ВАЗ 2107";
-            dataGridViewOrders.Rows[2].Cells[2].Value = 250;
-            dataGridViewOrders.Rows[2].Cells[3].Value = 1;
-            dataGridViewOrders.Rows[2].Cells[7].Value = -3;
-
-            dataGridViewOrders.Rows[3].Cells[0].Value = "ООО КВПЕ_ДОМСТРОЙ";
-            dataGridViewOrders.Rows[3].Cells[1].Value = "Панельный Дом Люкс Класса";
-            dataGridViewOrders.Rows[3].Cells[2].Value = 200_000;
-            dataGridViewOrders.Rows[3].Cells[3].Value = 2;
-            dataGridViewOrders.Rows[3].Cells[7].Value = -4;
-
-            dataGridViewOrders.Rows[4].Cells[0].Value = "ООО КОСМОС_ПЕ";
-            dataGridViewOrders.Rows[4].Cells[1].Value = "Космический Шатл Межпланетных Полётов";
-            dataGridViewOrders.Rows[4].Cells[2].Value = 200_000_000;
-            dataGridViewOrders.Rows[4].Cells[3].Value = 2;
-            dataGridViewOrders.Rows[4].Cells[7].Value = -5;
-        }
-        private void InitializdeDefaultImages()
-        {
-            defaultImages[0] = new DataService.KVRowsImage
+            tableElements.Add(new TableElement
             {
-                Key = Convert.ToInt32(dataGridViewOrders.Rows[0].Cells[7].Value),
-                Bitmap = Properties.Resources.Poezd_Yauza
-            };
+                Key = -1,
+                ClientName = "ООО \"Метрополитен\"",
+                OrderName = "Локомотив \"Яуза\"",
+                Price = 28_710,
+                Count = 6,
+                Image = Properties.Resources.Poezd_Yauza
+            });
 
-            defaultImages[1] = new DataService.KVRowsImage
+            tableElements.Add(new TableElement
             {
-                Key = Convert.ToInt32(dataGridViewOrders.Rows[1].Cells[7].Value),
-                Bitmap = Properties.Resources.Poezd8
-            };
+                Key = -2,
+                ClientName = "ООО \"Метрополитен\"",
+                OrderName = "Локомотив 81-717",
+                Price = 19_320,
+                Count = 8,
+                Image = Properties.Resources.Poezd8
+            });
 
-
-            defaultImages[2] = new DataService.KVRowsImage
+            tableElements.Add(new TableElement
             {
-                Key = Convert.ToInt32(dataGridViewOrders.Rows[2].Cells[7].Value.ToString()),
-                Bitmap = Properties.Resources.GoogeRA
-            };
+                Key = -3,
+                ClientName = "Гугера Б. А.",
+                OrderName = "ВАЗ 2107",
+                Price = 250,
+                Count = 1,
+                Image = Properties.Resources.GoogeRA
+            });
 
-
-            defaultImages[3] = new DataService.KVRowsImage
+            tableElements.Add(new TableElement
             {
-                Key = Convert.ToInt32(dataGridViewOrders.Rows[3].Cells[7].Value.ToString()),
-                Bitmap = Properties.Resources.PanelH
-            };
+                Key = -4,
+                ClientName = "ООО КВПЕ_ДОМСТРОЙ",
+                OrderName = "Панельный Дом Люкс Класса",
+                Price = 200_000,
+                Count = 2,
+                Image = Properties.Resources.PanelH
+            });
 
-
-            defaultImages[4] = new DataService.KVRowsImage
+            tableElements.Add(new TableElement
             {
-                Key = Convert.ToInt32(dataGridViewOrders.Rows[4].Cells[7].Value.ToString()),
-                Bitmap = Properties.Resources.Rocket
-            };
+                Key = -5,
+                ClientName = "ООО КОСМОС_ПЕ",
+                OrderName = "Космический Шатл Межпланетных Полётов",
+                Price = 200_000_000,
+                Count = 2,
+                Image = Properties.Resources.Rocket
+            });
 
-            defaultKeys = DataService.KVRowsImage.Keys(defaultImages);
+            for (int i = 0; i < 5; i++)
+            {
+                dataGridViewOrders.Rows[i].Cells[0].Value = tableElements[i].Key;
+                dataGridViewOrders.Rows[i].Cells[1].Value = tableElements[i].ClientName;
+                dataGridViewOrders.Rows[i].Cells[2].Value = tableElements[i].OrderName;
+                dataGridViewOrders.Rows[i].Cells[3].Value = tableElements[i].Price;
+                dataGridViewOrders.Rows[i].Cells[4].Value = tableElements[i].Count;
+                dataGridViewOrders.Rows[i].Cells[5].Value = tableElements[i].Summ;
+                dataGridViewOrders.Rows[i].Cells[6].Value = tableElements[i].Luxary;
+            }
         }
         private void buttonHelp_Click(object sender, EventArgs e)
         {
@@ -135,24 +127,47 @@ namespace Project.V10
 
         private void dataGridViewOrders_SelectionChanged(object sender, EventArgs e)
         {
+            if(dataGridViewOrders.SelectedCells.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridViewOrders.Rows[dataGridViewOrders.SelectedCells[0].RowIndex];
+
+                int cellKeyValue = Convert.ToInt32(selectedRow.Cells[0].Value);
+                TableElement element = tableElements.GetElementByKey(cellKeyValue);
+                if (element != null)
+                {
+                    pictureBoxProducts.Image.Dispose();
+                    using(Image image = element.Image)
+                    {
+                        pictureBoxProducts.Image = image;
+                    }
+                }
+                else
+                {
+                    pictureBoxProducts.Image = defaultPicture;
+                }
+            }
+            /*
             // Handle the selection changed event to update the pictureBoxProducts with the selected row's image
             if (dataGridViewOrders.SelectedCells.Count > 0)
             {
                 DataGridViewRow selectedRow = dataGridViewOrders.Rows[dataGridViewOrders.SelectedCells[0].RowIndex];
 
-                object cellValue = selectedRow.Cells[7].Value;
+                object cellKeyValue = selectedRow.Cells[7].Value;
                 // Get the image path from the selected row
-                if (cellValue != null && int.TryParse(cellValue.ToString(), out int rowKeyValue))
+                if (int.TryParse(cellKeyValue.ToString(), out int rowKeyValue))
                 {
 
                     // If the image path is not null or empty, update the pictureBoxProducts with the selected image
                     if (rowKeyValue > -1)
                     {
-                        int[] keys = DataService.KVRowsImage.Keys(imageList);
-                        int keyIndex = Array.IndexOf(keys, rowKeyValue);
-                        using (Bitmap bitmap = imageList[keyIndex].Bitmap)
+                        string path = DataService.GetPath(imageList, rowKeyValue);
+                        if (path != null)
                         {
-                            pictureBoxProducts.Image = bitmap;
+                            pictureBoxProducts.ImageLocation = path;
+                        }
+                        else
+                        {
+                            pictureBoxProducts.Image = defaultPicture;
                         }
                     }
                     else
@@ -167,14 +182,14 @@ namespace Project.V10
                     else
                     {
                         pictureBoxProducts.SizeMode = PictureBoxSizeMode.Zoom;
-                    }
+                    } 
                 }
-            }
+            } */
         }
 
         private void pictureBoxProducts_Click(object sender, EventArgs e)
         {
-
+            /*
             if (service.IsDefaultImage(pictureBoxProducts.Image, defaultPicture))
             {
                 int selectedRowIndex = dataGridViewOrders.SelectedCells[0].RowIndex;
@@ -187,18 +202,29 @@ namespace Project.V10
                     selectedRow.Cells[6].Value = filepath;
                     try
                     {
-                        imageList.Add(new DataService.KVRowsImage(rowKeyValue, filepath));
+                        int keyIndex = Array.IndexOf(DataService.KVRowsImage.Keys(imageList), rowKeyValue);
+                        using (Bitmap bitmap = new Bitmap(filepath))
+                        {
+                            imageList.Add(new DataService.KVRowsImage
+                            {
+                                Key = rowKeyValue,
+                                Path = filepath,
+                            }) ;
+                        }
+                        dataGridViewOrders.ClearSelection();
+                        dataGridViewOrders.Select();
                     }
                     catch
                     {
                         MessageBox.Show("Ошибка загрузки картинки", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-            }
+            } */
         }
 
         private void bindingNavigatorAddNewRow_Click(object sender, EventArgs e)
         { 
+            /*
             int mostKey = int.MinValue;
             for (int i = 0; i < dataGridViewOrders.RowCount; i++)
             {
@@ -209,8 +235,14 @@ namespace Project.V10
                 }
             }
             dataGridViewOrders.Rows.Add();
-            dataGridViewOrders.Rows[dataGridViewOrders.RowCount - 1].Cells[7].Value = mostKey + 1;
-            imageList.Add(new DataService.KVRowsImage(mostKey + 1, defaultPicture));
+            dataGridViewOrders.Rows[dataGridViewOrders.RowCount - 1].Cells[7].Value = mostKey + 1; */
+        }
+
+        private void bindingNavigatorDeleteRow_Click(object sender, EventArgs e)
+        {
+            int selectedRowIndex = dataGridViewOrders.SelectedCells[0].RowIndex;
+            DataGridViewRow selectedRow = dataGridViewOrders.Rows[selectedRowIndex];
+            dataGridViewOrders.Rows.Remove(selectedRow);
         }
     }
 }

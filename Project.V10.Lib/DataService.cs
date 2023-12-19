@@ -14,33 +14,56 @@ namespace Project.V10.Lib
         {
             return image == defaultImage;
         }
-
+        public static string GetPath(List<KVRowsImage> imageList, int key)
+        {
+            int[] keys = KVRowsImage.Keys(imageList);
+            if (keys.Contains(key))
+            {
+                return imageList[Array.IndexOf(keys, key)].Path;
+            }
+            else return null;
+        }
         public struct KVRowsImage
         {
             public int Key { get; set; }
+
             public string Path { get; set; }
 
             public Bitmap Bitmap { get; set; }
-
-            public KVRowsImage(int key, string path)
-            {
-                Key = key;
-                Path = path;
-                using(Bitmap bitmap = new Bitmap(path))
-                {
-                    Bitmap = bitmap;
-                } 
-            }
-            public KVRowsImage(int key, Bitmap bitmap)
-            {
-                Key = key;
-                Path = null;
-                Bitmap = bitmap;
-            }
+ 
             public static int[] Keys(IEnumerable<KVRowsImage> images)
             {
                 return images.Select(x => x.Key).ToArray();
             }
+        }
+    }
+    public class TableElement
+    {
+        public int Key { get; set; }
+
+        public string ClientName { get; set; }
+
+        public string OrderName { get; set; }
+
+        public int Price { get; set; }
+
+        public int Count { get; set; }
+
+        public int Summ => Price * Count;
+
+
+        public double Luxary => Price * (0.00000001 * Summ);
+
+        public string Path { get; set; }
+
+        public Image Image { get; set; }
+        
+    }
+    public static class TableElementExtensions
+    {
+        public static TableElement GetElementByKey(this List<TableElement> list, int key)
+        {
+            return list.FirstOrDefault(e => e.Key == key);
         }
     }
 }
