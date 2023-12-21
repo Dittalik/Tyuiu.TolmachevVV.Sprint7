@@ -63,7 +63,7 @@ namespace Project.V10
             this.buttonSaveFile = new System.Windows.Forms.Button();
             this.buttonOpenFile = new System.Windows.Forms.Button();
             this.openFileDialogPicture = new System.Windows.Forms.OpenFileDialog();
-            this.RowAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rowKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Client = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Product = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -126,7 +126,7 @@ namespace Project.V10
             this.dataGridViewOrders.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dataGridViewOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewOrders.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.RowAddress,
+            this.rowKey,
             this.Client,
             this.Product,
             this.Price,
@@ -390,13 +390,13 @@ namespace Project.V10
             // 
             this.openFileDialogPicture.FileName = "openFileDialog1";
             // 
-            // RowAddress
+            // rowKey
             // 
-            this.RowAddress.HeaderText = "RowAddress";
-            this.RowAddress.Name = "RowAddress";
-            this.RowAddress.ReadOnly = true;
-            this.RowAddress.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.RowAddress.Width = 73;
+            this.rowKey.HeaderText = "rowKey";
+            this.rowKey.Name = "rowKey";
+            this.rowKey.ReadOnly = true;
+            this.rowKey.Visible = false;
+            this.rowKey.Width = 67;
             // 
             // Client
             // 
@@ -441,7 +441,6 @@ namespace Project.V10
             this.PictureAddress.HeaderText = "PictureAddress";
             this.PictureAddress.Name = "PictureAddress";
             this.PictureAddress.ReadOnly = true;
-            this.PictureAddress.Visible = false;
             this.PictureAddress.Width = 103;
             // 
             // FormMain
@@ -511,7 +510,7 @@ namespace Project.V10
         private System.Windows.Forms.Button buttonPictureNotVisible;
         private System.Windows.Forms.Button buttonChart;
         private System.Windows.Forms.OpenFileDialog openFileDialogPicture;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RowAddress;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rowKey;
         private System.Windows.Forms.DataGridViewTextBoxColumn Client;
         private System.Windows.Forms.DataGridViewTextBoxColumn Product;
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;

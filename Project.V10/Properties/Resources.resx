@@ -151,7 +151,7 @@
   <data name="PanelH" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PanelH.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Poezd_Yauza" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="PoezdY" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Poezd_Yauza.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Poezd8" type="System.Resources.ResXFileRef, System.Windows.Forms">
