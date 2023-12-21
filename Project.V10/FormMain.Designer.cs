@@ -42,9 +42,7 @@ namespace Project.V10
             this.openFileDialogTable = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogTable = new System.Windows.Forms.SaveFileDialog();
             this.bindingNavigatorTable = new System.Windows.Forms.BindingNavigator(this.components);
-            this.bindingNavigatorAddNewRow = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
-            this.bindingNavigatorDeleteRow = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
@@ -53,7 +51,8 @@ namespace Project.V10
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.directorySearcherTable = new System.DirectoryServices.DirectorySearcher();
+            this.bindingNavigatorAddNewRow = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorDeleteRow = new System.Windows.Forms.ToolStripButton();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.buttonPictureVisible = new System.Windows.Forms.Button();
             this.buttonPictureNotVisible = new System.Windows.Forms.Button();
@@ -71,6 +70,7 @@ namespace Project.V10
             this.Summ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LuxaryPoints = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PictureAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.directorySearcher = new System.DirectoryServices.DirectorySearcher();
             this.groupBoxGridAndPic.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerGridAndPic)).BeginInit();
             this.splitContainerGridAndPic.Panel1.SuspendLayout();
@@ -137,8 +137,10 @@ namespace Project.V10
             this.dataGridViewOrders.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewOrders.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewOrders.Name = "dataGridViewOrders";
+            this.dataGridViewOrders.RowHeadersVisible = false;
             this.dataGridViewOrders.Size = new System.Drawing.Size(540, 350);
             this.dataGridViewOrders.TabIndex = 0;
+            this.dataGridViewOrders.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewOrders_ColumnHeaderMouseClick);
             this.dataGridViewOrders.SelectionChanged += new System.EventHandler(this.dataGridViewOrders_SelectionChanged);
             // 
             // pictureBoxProducts
@@ -177,11 +179,11 @@ namespace Project.V10
             // 
             // bindingNavigatorTable
             // 
-            this.bindingNavigatorTable.AddNewItem = this.bindingNavigatorAddNewRow;
+            this.bindingNavigatorTable.AddNewItem = null;
             this.bindingNavigatorTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bindingNavigatorTable.AutoSize = false;
             this.bindingNavigatorTable.CountItem = this.bindingNavigatorCountItem;
-            this.bindingNavigatorTable.DeleteItem = this.bindingNavigatorDeleteRow;
+            this.bindingNavigatorTable.DeleteItem = null;
             this.bindingNavigatorTable.Dock = System.Windows.Forms.DockStyle.None;
             this.bindingNavigatorTable.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bindingNavigatorMoveFirstItem,
@@ -206,32 +208,12 @@ namespace Project.V10
             this.bindingNavigatorTable.Size = new System.Drawing.Size(263, 20);
             this.bindingNavigatorTable.TabIndex = 1;
             // 
-            // bindingNavigatorAddNewRow
-            // 
-            this.bindingNavigatorAddNewRow.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorAddNewRow.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewRow.Image")));
-            this.bindingNavigatorAddNewRow.Name = "bindingNavigatorAddNewRow";
-            this.bindingNavigatorAddNewRow.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewRow.Size = new System.Drawing.Size(23, 17);
-            this.bindingNavigatorAddNewRow.Text = "Добавить Строку";
-            this.bindingNavigatorAddNewRow.Click += new System.EventHandler(this.bindingNavigatorAddNewRow_Click);
-            // 
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
             this.bindingNavigatorCountItem.Size = new System.Drawing.Size(43, 17);
             this.bindingNavigatorCountItem.Text = "для {0}";
             this.bindingNavigatorCountItem.ToolTipText = "Общее число элементов";
-            // 
-            // bindingNavigatorDeleteRow
-            // 
-            this.bindingNavigatorDeleteRow.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorDeleteRow.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteRow.Image")));
-            this.bindingNavigatorDeleteRow.Name = "bindingNavigatorDeleteRow";
-            this.bindingNavigatorDeleteRow.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorDeleteRow.Size = new System.Drawing.Size(23, 17);
-            this.bindingNavigatorDeleteRow.Text = "Удалить Строку";
-            this.bindingNavigatorDeleteRow.Click += new System.EventHandler(this.bindingNavigatorDeleteRow_Click);
             // 
             // bindingNavigatorMoveFirstItem
             // 
@@ -241,6 +223,7 @@ namespace Project.V10
             this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 17);
             this.bindingNavigatorMoveFirstItem.Text = "Переместить в начало";
+            this.bindingNavigatorMoveFirstItem.Click += new System.EventHandler(this.bindingNavigatorMoveFirstItem_Click);
             // 
             // bindingNavigatorMovePreviousItem
             // 
@@ -250,6 +233,7 @@ namespace Project.V10
             this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 17);
             this.bindingNavigatorMovePreviousItem.Text = "Переместить назад";
+            this.bindingNavigatorMovePreviousItem.Click += new System.EventHandler(this.bindingNavigatorMovePreviousItem_Click);
             // 
             // bindingNavigatorSeparator
             // 
@@ -279,6 +263,7 @@ namespace Project.V10
             this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 17);
             this.bindingNavigatorMoveNextItem.Text = "Переместить вперед";
+            this.bindingNavigatorMoveNextItem.Click += new System.EventHandler(this.bindingNavigatorMoveNextItem_Click);
             // 
             // bindingNavigatorMoveLastItem
             // 
@@ -288,17 +273,32 @@ namespace Project.V10
             this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 17);
             this.bindingNavigatorMoveLastItem.Text = "Переместить в конец";
+            this.bindingNavigatorMoveLastItem.Click += new System.EventHandler(this.bindingNavigatorMoveLastItem_Click);
             // 
             // bindingNavigatorSeparator2
             // 
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
             this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 20);
             // 
-            // directorySearcherTable
+            // bindingNavigatorAddNewRow
             // 
-            this.directorySearcherTable.ClientTimeout = System.TimeSpan.Parse("-00:00:01");
-            this.directorySearcherTable.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
-            this.directorySearcherTable.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
+            this.bindingNavigatorAddNewRow.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorAddNewRow.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewRow.Image")));
+            this.bindingNavigatorAddNewRow.Name = "bindingNavigatorAddNewRow";
+            this.bindingNavigatorAddNewRow.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorAddNewRow.Size = new System.Drawing.Size(23, 17);
+            this.bindingNavigatorAddNewRow.Text = "Добавить Строку";
+            this.bindingNavigatorAddNewRow.Click += new System.EventHandler(this.bindingNavigatorAddNewRow_Click);
+            // 
+            // bindingNavigatorDeleteRow
+            // 
+            this.bindingNavigatorDeleteRow.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorDeleteRow.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteRow.Image")));
+            this.bindingNavigatorDeleteRow.Name = "bindingNavigatorDeleteRow";
+            this.bindingNavigatorDeleteRow.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorDeleteRow.Size = new System.Drawing.Size(23, 17);
+            this.bindingNavigatorDeleteRow.Text = "Удалить Строку";
+            this.bindingNavigatorDeleteRow.Click += new System.EventHandler(this.bindingNavigatorDeleteRow_Click);
             // 
             // textBoxSearch
             // 
@@ -309,6 +309,7 @@ namespace Project.V10
             this.textBoxSearch.Name = "textBoxSearch";
             this.textBoxSearch.Size = new System.Drawing.Size(253, 20);
             this.textBoxSearch.TabIndex = 6;
+            this.textBoxSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxSearch_KeyPress);
             // 
             // buttonPictureVisible
             // 
@@ -395,7 +396,6 @@ namespace Project.V10
             this.rowKey.HeaderText = "rowKey";
             this.rowKey.Name = "rowKey";
             this.rowKey.ReadOnly = true;
-            this.rowKey.Visible = false;
             this.rowKey.Width = 67;
             // 
             // Client
@@ -442,6 +442,12 @@ namespace Project.V10
             this.PictureAddress.Name = "PictureAddress";
             this.PictureAddress.ReadOnly = true;
             this.PictureAddress.Width = 103;
+            // 
+            // directorySearcher
+            // 
+            this.directorySearcher.ClientTimeout = System.TimeSpan.Parse("-00:00:01");
+            this.directorySearcher.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
+            this.directorySearcher.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
             // 
             // FormMain
             // 
@@ -502,7 +508,6 @@ namespace Project.V10
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
-        private System.DirectoryServices.DirectorySearcher directorySearcherTable;
         private System.Windows.Forms.PictureBox pictureBoxMagnifier;
         private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartProducts;
@@ -518,6 +523,7 @@ namespace Project.V10
         private System.Windows.Forms.DataGridViewTextBoxColumn Summ;
         private System.Windows.Forms.DataGridViewTextBoxColumn LuxaryPoints;
         private System.Windows.Forms.DataGridViewTextBoxColumn PictureAddress;
+        private System.DirectoryServices.DirectorySearcher directorySearcher;
     }
 }
 

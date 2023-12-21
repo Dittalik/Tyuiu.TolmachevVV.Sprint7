@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using Project.V10.Lib;
 using System.Runtime.CompilerServices;
+using System.Collections.ObjectModel;
 
 namespace Project.V10
 {
@@ -34,12 +35,13 @@ namespace Project.V10
             InitializeComponent();
             InitializeFormData();
 
+            bindingSource.DataSource = dataGridViewOrders.Rows;
+            bindingNavigatorTable.BindingSource = bindingSource;
+
             openFileDialogTable.Filter = "Значения разделённые точками(*.csv)|*.csv|Все файлы(*.*)|*.*";
             openFileDialogPicture.Filter = "Файлы изображений(*.png,*.jpg, *.gif)|*.png;*.jpg;*.gif|Все файлы(*.*)|*.*";
             saveFileDialogTable.Filter = "Значения разделённые точками(*.csv)|*.csv|Все файлы(*.*)|*.*";
 
-            bindingSource.DataSource = dataGridViewOrders;
-            bindingNavigatorTable.BindingSource = bindingSource;
         }
         private void InitializeFormData()
         {
@@ -110,8 +112,9 @@ namespace Project.V10
         {
             if(dataGridViewOrders.SelectedCells.Count > 0)
             {
-                DataGridViewRow selectedRow = dataGridViewOrders.Rows[dataGridViewOrders.SelectedCells[0].RowIndex];
-
+                int selectedRowIndex = dataGridViewOrders.SelectedCells[0].RowIndex;
+                DataGridViewRow selectedRow = dataGridViewOrders.Rows[selectedRowIndex];
+                bindingSource.Position = selectedRowIndex;
                 int rowKeyValue = Convert.ToInt32(selectedRow.Cells[0].Value);
                 TableElement element = tableElements.GetElementByKey(rowKeyValue);
                 if (element.Path != null)
@@ -137,6 +140,7 @@ namespace Project.V10
             if (service.IsDefaultImage(pictureBoxProducts.Image, defaultBitmap))
             {
                 int selectedRowIndex = dataGridViewOrders.SelectedCells[0].RowIndex;
+                
                 DataGridViewRow selectedRow = dataGridViewOrders.Rows[selectedRowIndex];
                 int rowKeyValue = Convert.ToInt32(selectedRow.Cells[0].Value);
                 TableElement element = tableElements.GetElementByKey(rowKeyValue);
@@ -178,15 +182,92 @@ namespace Project.V10
             {
                 Key = mostKey + 1
             });
-            dataGridViewOrders.Rows.Add();
-            dataGridViewOrders.Rows[dataGridViewOrders.RowCount - 1].Cells[0].Value = mostKey + 1;
+            dataGridViewOrders.Rows.Add((mostKey + 1).ToString());
+        }
+
+        private void bindingNavigatorMovePreviousItem_Click(object sender, EventArgs e)
+        {
+
+            dataGridViewOrders.ClearSelection();
+            dataGridViewOrders.Rows[bindingSource.Position].Selected = true;
+
+        }
+
+        private void bindingNavigatorMoveNextItem_Click(object sender, EventArgs e)
+        {
+            dataGridViewOrders.ClearSelection();
+            dataGridViewOrders.Rows[bindingSource.Position].Selected = true;
+        }
+
+        private void bindingNavigatorMoveLastItem_Click(object sender, EventArgs e)
+        {
+            dataGridViewOrders.ClearSelection();
+            dataGridViewOrders.Rows[bindingSource.Position].Selected = true;
+        }
+
+        private void bindingNavigatorMoveFirstItem_Click(object sender, EventArgs e)
+        {
+            dataGridViewOrders.ClearSelection();
+            dataGridViewOrders.Rows[bindingSource.Position].Selected = true;
+        }
+
+        private void dataGridViewOrders_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            int columnIndex = e.ColumnIndex;
+            dataGridViewOrders.ClearSelection();
+
+            foreach (DataGridViewRow row in dataGridViewOrders.Rows)
+            {
+                if (row.Cells.Count > columnIndex)
+                {
+                    row.Cells[columnIndex].Selected = true;
+                }
+            }
         }
 
         private void bindingNavigatorDeleteRow_Click(object sender, EventArgs e)
         {
-            int selectedRowIndex = dataGridViewOrders.SelectedCells[0].RowIndex;
-            DataGridViewRow selectedRow = dataGridViewOrders.Rows[selectedRowIndex];
+            DataGridViewRow selectedRow = dataGridViewOrders.Rows[dataGridViewOrders.SelectedCells[0].RowIndex];
             dataGridViewOrders.Rows.Remove(selectedRow);
+            int rowKey = Convert.ToInt32(selectedRow.Cells[0].Value);
+            tableElements.RemoveAt(Array.IndexOf(tableElements.Keys(), rowKey));
+        }
+
+        private void textBoxSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string text = textBoxSearch.Text?.ToLower();
+            if (!string.IsNullOrEmpty(text))
+            {
+                DataGridViewRowCollection rows = dataGridViewOrders.Rows;
+                foreach (DataGridViewRow row in rows)
+                {
+                    List<string> cellsValues = new List<string>();
+                    for (int i = 1; i < row.Cells.Count; i++)
+                    {
+                        string cellValue = row.Cells[i].Value?.ToString().ToLower();
+                        if (!string.IsNullOrEmpty(cellValue))
+                        {
+                            cellsValues.Add(cellValue);
+                        }
+                    }
+                    if (cellsValues.Any(x => x.Contains(text)))
+                    {
+                        row.Visible = true;
+                    }
+                    else
+                    {
+                        row.Visible = false;
+                    }
+                }
+            }
+            else
+            {
+                DataGridViewRowCollection rows = dataGridViewOrders.Rows;
+                foreach (DataGridViewRow row in rows)
+                {
+                    row.Visible = true;
+                }
+            }
         }
     }
 }
