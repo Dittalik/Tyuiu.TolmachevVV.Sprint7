@@ -11,13 +11,14 @@ using System.IO;
 using Project.V10.Lib;
 using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Threading;
 
 namespace Project.V10
 {
     public partial class FormMain : Form
     {
         private BindingSource bindingSource = new BindingSource();
-        private DataService service = new DataService();
 
         private Bitmap defaultBitmap = Properties.Resources.picture_add;
         private static Bitmap[] defaultBitmaps = new Bitmap[]
@@ -99,13 +100,15 @@ namespace Project.V10
         private void buttonPictureNotVisible_Click(object sender, EventArgs e)
         {
             pictureBoxProducts.Visible = false;
-            buttonChart.Enabled = true;
+            buttonChartAddLine.Enabled = true;
+            buttonChartDeleteLine.Enabled = true;
         }
 
         private void buttonPictureVisible_Click(object sender, EventArgs e)
         {
             pictureBoxProducts.Visible = true;
-            buttonChart.Enabled = false;
+            buttonChartAddLine.Enabled = false;
+            buttonChartDeleteLine.Enabled = false;
         }
 
         private void dataGridViewOrders_SelectionChanged(object sender, EventArgs e)
@@ -137,7 +140,7 @@ namespace Project.V10
 
         private void pictureBoxProducts_Click(object sender, EventArgs e)
         {
-            if (service.IsDefaultImage(pictureBoxProducts.Image, defaultBitmap))
+            if (pictureBoxProducts.Image == defaultBitmap)
             {
                 int selectedRowIndex = dataGridViewOrders.SelectedCells[0].RowIndex;
                 
@@ -154,7 +157,7 @@ namespace Project.V10
                         {
                             tableElements[element.Key].Path = filepath;
                         }
-                        selectedRow.Cells[6].Value = filepath;
+                        selectedRow.Cells[7].Value = filepath;
                         pictureBoxProducts.SizeMode = PictureBoxSizeMode.Zoom;
                         pictureBoxProducts.ImageLocation = element.Path;
                     }
@@ -267,6 +270,60 @@ namespace Project.V10
                 {
                     row.Visible = true;
                 }
+            }
+        }
+
+        private void bindingNavigatorButtonSum_Click(object sender, EventArgs e)
+        {
+            dataGridViewOrders.Rows.RowsSumm();
+        }
+
+        private void pictureBoxMagnifier_Click(object sender, EventArgs e)
+        {
+            pictureBoxMagnifier.Visible = false;
+            pictureBoxMagnifier.Enabled = false;
+            textBoxSearch.Visible = false;
+            textBoxSearch.Enabled = false;
+
+            pictureBoxFilter.Visible = true;
+            pictureBoxFilter.Enabled = true;
+
+            comboBoxFilter.Visible = true;
+            comboBoxFilter.Enabled = true;
+            textBoxFilter.Visible = true;
+            textBoxFilter.Enabled = true;
+        }
+
+        private void pictureBoxFilter_Click(object sender, EventArgs e)
+        {
+            pictureBoxFilter.Visible = false;
+            pictureBoxFilter.Enabled = false;
+
+            comboBoxFilter.Visible = false;
+            comboBoxFilter.Enabled = false;
+            textBoxFilter.Visible = false;
+            textBoxFilter.Enabled = false;
+
+            pictureBoxMagnifier.Visible = true;
+            pictureBoxMagnifier.Enabled = true;
+            textBoxSearch.Visible = true;
+            textBoxSearch.Enabled = true;
+        }
+
+        private void comboBoxFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int selectedIndex = comboBoxFilter.SelectedIndex;
+            if (selectedIndex > -1 && selectedIndex < 2)
+            {
+                textBoxFilter.Text = "Длина: ";
+            }
+            else if (selectedIndex >= 2 && selectedIndex < 5)
+            {
+                textBoxFilter.Text = "Величина: ";
+            }
+            else
+            {
+                textBoxFilter.Text = "Значение: ";
             }
         }
     }
