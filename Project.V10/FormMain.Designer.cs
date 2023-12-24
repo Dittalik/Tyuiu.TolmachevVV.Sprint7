@@ -30,21 +30,12 @@ namespace Project.V10
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             this.groupBoxGridAndPic = new System.Windows.Forms.GroupBox();
             this.splitContainerGridAndPic = new System.Windows.Forms.SplitContainer();
+            this.buttonCalculation = new System.Windows.Forms.Button();
             this.dataGridViewOrders = new System.Windows.Forms.DataGridView();
-            this.rowKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Client = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Product = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Summ = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LuxaryPoints = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PictureAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pictureBoxProducts = new System.Windows.Forms.PictureBox();
             this.chartProducts = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.openFileDialogTable = new System.Windows.Forms.OpenFileDialog();
@@ -74,12 +65,20 @@ namespace Project.V10
             this.directorySearcher = new System.DirectoryServices.DirectorySearcher();
             this.pictureBoxFilter = new System.Windows.Forms.PictureBox();
             this.comboBoxFilter = new System.Windows.Forms.ComboBox();
-            this.textBoxFilter = new System.Windows.Forms.TextBox();
             this.toolTipSearch = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipFilter = new System.Windows.Forms.ToolTip(this.components);
             this.buttonChartDeleteLine = new System.Windows.Forms.Button();
             this.toolTipChart = new System.Windows.Forms.ToolTip(this.components);
-            this.button2 = new System.Windows.Forms.Button();
+            this.textBoxFilter = new System.Windows.Forms.TextBox();
+            this.pictureBoxFilterExecute = new System.Windows.Forms.PictureBox();
+            this.rowKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Client = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Product = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Summ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LuxaryPoints = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PictureAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBoxGridAndPic.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerGridAndPic)).BeginInit();
             this.splitContainerGridAndPic.Panel1.SuspendLayout();
@@ -92,6 +91,7 @@ namespace Project.V10
             this.bindingNavigatorTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMagnifier)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFilter)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFilterExecute)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxGridAndPic
@@ -116,7 +116,7 @@ namespace Project.V10
             // 
             // splitContainerGridAndPic.Panel1
             // 
-            this.splitContainerGridAndPic.Panel1.Controls.Add(this.button2);
+            this.splitContainerGridAndPic.Panel1.Controls.Add(this.buttonCalculation);
             this.splitContainerGridAndPic.Panel1.Controls.Add(this.dataGridViewOrders);
             this.splitContainerGridAndPic.Panel1MinSize = 520;
             // 
@@ -129,6 +129,17 @@ namespace Project.V10
             this.splitContainerGridAndPic.SplitterDistance = 540;
             this.splitContainerGridAndPic.SplitterWidth = 8;
             this.splitContainerGridAndPic.TabIndex = 0;
+            // 
+            // buttonCalculation
+            // 
+            this.buttonCalculation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCalculation.Image = ((System.Drawing.Image)(resources.GetObject("buttonCalculation.Image")));
+            this.buttonCalculation.Location = new System.Drawing.Point(477, 272);
+            this.buttonCalculation.Name = "buttonCalculation";
+            this.buttonCalculation.Size = new System.Drawing.Size(60, 60);
+            this.buttonCalculation.TabIndex = 0;
+            this.buttonCalculation.UseVisualStyleBackColor = true;
+            this.buttonCalculation.Click += new System.EventHandler(this.buttonCalculation_Click);
             // 
             // dataGridViewOrders
             // 
@@ -156,59 +167,6 @@ namespace Project.V10
             this.dataGridViewOrders.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewOrders_ColumnHeaderMouseClick);
             this.dataGridViewOrders.SelectionChanged += new System.EventHandler(this.dataGridViewOrders_SelectionChanged);
             // 
-            // rowKey
-            // 
-            this.rowKey.HeaderText = "rowKey";
-            this.rowKey.Name = "rowKey";
-            this.rowKey.ReadOnly = true;
-            this.rowKey.Visible = false;
-            this.rowKey.Width = 48;
-            // 
-            // Client
-            // 
-            this.Client.HeaderText = "Заказчик:";
-            this.Client.Name = "Client";
-            this.Client.Width = 83;
-            // 
-            // Product
-            // 
-            this.Product.HeaderText = "Заказ:";
-            this.Product.Name = "Product";
-            this.Product.Width = 66;
-            // 
-            // Price
-            // 
-            this.Price.HeaderText = "Цена (т. руб):";
-            this.Price.Name = "Price";
-            this.Price.Width = 98;
-            // 
-            // ProductCount
-            // 
-            this.ProductCount.HeaderText = "Количество:";
-            this.ProductCount.Name = "ProductCount";
-            this.ProductCount.Width = 94;
-            // 
-            // Summ
-            // 
-            this.Summ.HeaderText = "Стоимость";
-            this.Summ.Name = "Summ";
-            this.Summ.ReadOnly = true;
-            this.Summ.Width = 87;
-            // 
-            // LuxaryPoints
-            // 
-            this.LuxaryPoints.HeaderText = "Лакшери:";
-            this.LuxaryPoints.Name = "LuxaryPoints";
-            this.LuxaryPoints.ReadOnly = true;
-            this.LuxaryPoints.Width = 81;
-            // 
-            // PictureAddress
-            // 
-            this.PictureAddress.HeaderText = "PictureAddress";
-            this.PictureAddress.Name = "PictureAddress";
-            this.PictureAddress.ReadOnly = true;
-            this.PictureAddress.Width = 103;
-            // 
             // pictureBoxProducts
             // 
             this.pictureBoxProducts.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -227,17 +185,10 @@ namespace Project.V10
             chartArea2.Name = "ChartArea1";
             this.chartProducts.ChartAreas.Add(chartArea2);
             this.chartProducts.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Name = "Legend1";
-            this.chartProducts.Legends.Add(legend2);
             this.chartProducts.Location = new System.Drawing.Point(0, 0);
             this.chartProducts.Name = "chartProducts";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chartProducts.Series.Add(series2);
             this.chartProducts.Size = new System.Drawing.Size(350, 350);
             this.chartProducts.TabIndex = 1;
-            this.chartProducts.Text = "chart1";
             // 
             // openFileDialogTable
             // 
@@ -388,7 +339,7 @@ namespace Project.V10
             this.textBoxSearch.Name = "textBoxSearch";
             this.textBoxSearch.Size = new System.Drawing.Size(253, 21);
             this.textBoxSearch.TabIndex = 6;
-            this.textBoxSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxSearch_KeyPress);
+            this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
             // 
             // buttonPictureVisible
             // 
@@ -425,6 +376,7 @@ namespace Project.V10
             this.buttonChartAddLine.Text = "       Добавить";
             this.toolTipChart.SetToolTip(this.buttonChartAddLine, "Добавить.\r\nВыделите числовые значения, которые хотите добавить");
             this.buttonChartAddLine.UseVisualStyleBackColor = true;
+            this.buttonChartAddLine.Click += new System.EventHandler(this.buttonChartAddLine_Click);
             // 
             // pictureBoxMagnifier
             // 
@@ -470,6 +422,7 @@ namespace Project.V10
             this.buttonOpenFile.Size = new System.Drawing.Size(70, 60);
             this.buttonOpenFile.TabIndex = 0;
             this.buttonOpenFile.UseVisualStyleBackColor = true;
+            this.buttonOpenFile.Click += new System.EventHandler(this.buttonOpenFile_Click);
             // 
             // openFileDialogPicture
             // 
@@ -509,33 +462,19 @@ namespace Project.V10
             this.comboBoxFilter.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.comboBoxFilter.ItemHeight = 13;
             this.comboBoxFilter.Items.AddRange(new object[] {
-            "Заказчик",
-            "Заказ",
-            "Цена",
-            "Количество",
-            "Стоимость",
-            "Лакшери"});
+            "Заказчик, Длина:",
+            "Заказ, Длина:",
+            "Цена, Величина:",
+            "Количество, Величина:",
+            "Стоимость, Величина:",
+            "Лакшери, Значение:"});
             this.comboBoxFilter.Location = new System.Drawing.Point(302, 451);
             this.comboBoxFilter.Name = "comboBoxFilter";
-            this.comboBoxFilter.Size = new System.Drawing.Size(110, 21);
+            this.comboBoxFilter.Size = new System.Drawing.Size(130, 21);
             this.comboBoxFilter.TabIndex = 8;
             this.comboBoxFilter.Visible = false;
             this.comboBoxFilter.SelectedIndexChanged += new System.EventHandler(this.comboBoxFilter_SelectedIndexChanged);
-            // 
-            // textBoxFilter
-            // 
-            this.textBoxFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBoxFilter.BackColor = System.Drawing.SystemColors.Control;
-            this.textBoxFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxFilter.Enabled = false;
-            this.textBoxFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxFilter.Location = new System.Drawing.Point(419, 451);
-            this.textBoxFilter.Multiline = true;
-            this.textBoxFilter.Name = "textBoxFilter";
-            this.textBoxFilter.Size = new System.Drawing.Size(136, 21);
-            this.textBoxFilter.TabIndex = 6;
-            this.textBoxFilter.Visible = false;
-            this.textBoxFilter.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxSearch_KeyPress);
+            this.comboBoxFilter.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.comboBoxFilter_KeyPress);
             // 
             // toolTipSearch
             // 
@@ -560,22 +499,90 @@ namespace Project.V10
             this.buttonChartDeleteLine.Text = "      Удалить";
             this.toolTipChart.SetToolTip(this.buttonChartDeleteLine, "Удалить последнюю линию.");
             this.buttonChartDeleteLine.UseVisualStyleBackColor = true;
+            this.buttonChartDeleteLine.Click += new System.EventHandler(this.buttonChartDeleteLine_Click);
             // 
             // toolTipChart
             // 
             this.toolTipChart.ToolTipTitle = "Линия графика";
             // 
-            // button2
+            // textBoxFilter
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
-            this.button2.Location = new System.Drawing.Point(477, 272);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(60, 60);
-            this.button2.TabIndex = 0;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.buttonSaveFile_Click);
+            this.textBoxFilter.Enabled = false;
+            this.textBoxFilter.Location = new System.Drawing.Point(432, 451);
+            this.textBoxFilter.Multiline = true;
+            this.textBoxFilter.Name = "textBoxFilter";
+            this.textBoxFilter.Size = new System.Drawing.Size(123, 21);
+            this.textBoxFilter.TabIndex = 9;
+            this.textBoxFilter.Visible = false;
+            this.textBoxFilter.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxFilter_KeyPress);
+            // 
+            // pictureBoxFilterExecute
+            // 
+            this.pictureBoxFilterExecute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pictureBoxFilterExecute.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxFilterExecute.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBoxFilterExecute.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxFilterExecute.Image")));
+            this.pictureBoxFilterExecute.Location = new System.Drawing.Point(533, 451);
+            this.pictureBoxFilterExecute.Name = "pictureBoxFilterExecute";
+            this.pictureBoxFilterExecute.Size = new System.Drawing.Size(22, 21);
+            this.pictureBoxFilterExecute.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxFilterExecute.TabIndex = 5;
+            this.pictureBoxFilterExecute.TabStop = false;
+            this.pictureBoxFilterExecute.Click += new System.EventHandler(this.pictureBoxFilterExecute_Click);
+            // 
+            // rowKey
+            // 
+            this.rowKey.HeaderText = "rowKey";
+            this.rowKey.Name = "rowKey";
+            this.rowKey.ReadOnly = true;
+            this.rowKey.Visible = false;
+            this.rowKey.Width = 48;
+            // 
+            // Client
+            // 
+            this.Client.HeaderText = "Заказчик:";
+            this.Client.Name = "Client";
+            this.Client.Width = 83;
+            // 
+            // Product
+            // 
+            this.Product.HeaderText = "Заказ:";
+            this.Product.Name = "Product";
+            this.Product.Width = 66;
+            // 
+            // Price
+            // 
+            this.Price.HeaderText = "Цена (т. руб):";
+            this.Price.Name = "Price";
+            this.Price.Width = 98;
+            // 
+            // ProductCount
+            // 
+            this.ProductCount.HeaderText = "Количество:";
+            this.ProductCount.Name = "ProductCount";
+            this.ProductCount.Width = 94;
+            // 
+            // Summ
+            // 
+            this.Summ.HeaderText = "Стоимость";
+            this.Summ.Name = "Summ";
+            this.Summ.ReadOnly = true;
+            this.Summ.Width = 87;
+            // 
+            // LuxaryPoints
+            // 
+            this.LuxaryPoints.HeaderText = "Лакшери:";
+            this.LuxaryPoints.Name = "LuxaryPoints";
+            this.LuxaryPoints.ReadOnly = true;
+            this.LuxaryPoints.Width = 81;
+            // 
+            // PictureAddress
+            // 
+            this.PictureAddress.HeaderText = "PictureAddress";
+            this.PictureAddress.Name = "PictureAddress";
+            this.PictureAddress.ReadOnly = true;
+            this.PictureAddress.Visible = false;
+            this.PictureAddress.Width = 103;
             // 
             // FormMain
             // 
@@ -583,19 +590,20 @@ namespace Project.V10
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(928, 483);
             this.Controls.Add(this.textBoxSearch);
+            this.Controls.Add(this.pictureBoxFilterExecute);
             this.Controls.Add(this.buttonChartDeleteLine);
             this.Controls.Add(this.buttonChartAddLine);
             this.Controls.Add(this.buttonPictureNotVisible);
             this.Controls.Add(this.buttonPictureVisible);
-            this.Controls.Add(this.textBoxFilter);
             this.Controls.Add(this.bindingNavigatorTable);
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonSaveFile);
             this.Controls.Add(this.buttonOpenFile);
             this.Controls.Add(this.groupBoxGridAndPic);
-            this.Controls.Add(this.comboBoxFilter);
             this.Controls.Add(this.pictureBoxMagnifier);
             this.Controls.Add(this.pictureBoxFilter);
+            this.Controls.Add(this.textBoxFilter);
+            this.Controls.Add(this.comboBoxFilter);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -613,6 +621,7 @@ namespace Project.V10
             this.bindingNavigatorTable.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMagnifier)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFilter)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFilterExecute)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -652,9 +661,13 @@ namespace Project.V10
         private System.Windows.Forms.ToolStripButton bindingNavigatorButtonSum;
         private System.Windows.Forms.PictureBox pictureBoxFilter;
         private System.Windows.Forms.ComboBox comboBoxFilter;
-        private System.Windows.Forms.TextBox textBoxFilter;
         private System.Windows.Forms.ToolTip toolTipSearch;
         private System.Windows.Forms.ToolTip toolTipFilter;
+        private System.Windows.Forms.Button buttonChartDeleteLine;
+        private System.Windows.Forms.ToolTip toolTipChart;
+        private System.Windows.Forms.Button buttonCalculation;
+        private System.Windows.Forms.TextBox textBoxFilter;
+        private System.Windows.Forms.PictureBox pictureBoxFilterExecute;
         private System.Windows.Forms.DataGridViewTextBoxColumn rowKey;
         private System.Windows.Forms.DataGridViewTextBoxColumn Client;
         private System.Windows.Forms.DataGridViewTextBoxColumn Product;
@@ -663,9 +676,6 @@ namespace Project.V10
         private System.Windows.Forms.DataGridViewTextBoxColumn Summ;
         private System.Windows.Forms.DataGridViewTextBoxColumn LuxaryPoints;
         private System.Windows.Forms.DataGridViewTextBoxColumn PictureAddress;
-        private System.Windows.Forms.Button buttonChartDeleteLine;
-        private System.Windows.Forms.ToolTip toolTipChart;
-        private System.Windows.Forms.Button button2;
     }
 }
 

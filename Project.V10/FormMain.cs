@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using Project.V10.Lib;
+using System.CodeDom.Compiler;
 using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -93,10 +94,15 @@ namespace Project.V10
         }
 
         private void buttonSaveFile_Click(object sender, EventArgs e)
-        {        
-            
+        {
+            saveFileDialogTable.FileName = "OrdersTable";
+            saveFileDialogTable.InitialDirectory = Directory.GetCurrentDirectory();
+            if (saveFileDialogTable.ShowDialog() != DialogResult.Cancel)
+            {
+                string filepath = saveFileDialogTable.FileName;
+                dataGridViewOrders.Rows.SaveTable(filepath);
+            }
         }
-
         private void buttonPictureNotVisible_Click(object sender, EventArgs e)
         {
             pictureBoxProducts.Visible = false;
@@ -155,7 +161,7 @@ namespace Project.V10
                     {
                         using (Bitmap bitmap = new Bitmap(filepath))
                         {
-                            tableElements[element.Key].Path = filepath;
+                            tableElements[tableElements.KeyIndex(element.Key)].Path = filepath;
                         }
                         selectedRow.Cells[7].Value = filepath;
                         pictureBoxProducts.SizeMode = PictureBoxSizeMode.Zoom;
@@ -233,44 +239,7 @@ namespace Project.V10
             DataGridViewRow selectedRow = dataGridViewOrders.Rows[dataGridViewOrders.SelectedCells[0].RowIndex];
             dataGridViewOrders.Rows.Remove(selectedRow);
             int rowKey = Convert.ToInt32(selectedRow.Cells[0].Value);
-            tableElements.RemoveAt(Array.IndexOf(tableElements.Keys(), rowKey));
-        }
-
-        private void textBoxSearch_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            string text = textBoxSearch.Text?.ToLower();
-            if (!string.IsNullOrEmpty(text))
-            {
-                DataGridViewRowCollection rows = dataGridViewOrders.Rows;
-                foreach (DataGridViewRow row in rows)
-                {
-                    List<string> cellsValues = new List<string>();
-                    for (int i = 1; i < row.Cells.Count; i++)
-                    {
-                        string cellValue = row.Cells[i].Value?.ToString().ToLower();
-                        if (!string.IsNullOrEmpty(cellValue))
-                        {
-                            cellsValues.Add(cellValue);
-                        }
-                    }
-                    if (cellsValues.Any(x => x.Contains(text)))
-                    {
-                        row.Visible = true;
-                    }
-                    else
-                    {
-                        row.Visible = false;
-                    }
-                }
-            }
-            else
-            {
-                DataGridViewRowCollection rows = dataGridViewOrders.Rows;
-                foreach (DataGridViewRow row in rows)
-                {
-                    row.Visible = true;
-                }
-            }
+            tableElements.RemoveAt(tableElements.KeyIndex(rowKey));
         }
 
         private void bindingNavigatorButtonSum_Click(object sender, EventArgs e)
@@ -287,15 +256,17 @@ namespace Project.V10
 
             pictureBoxFilter.Visible = true;
             pictureBoxFilter.Enabled = true;
+            textBoxFilter.Visible = true;
+            pictureBoxFilterExecute.Visible = true;
+            pictureBoxFilterExecute.Enabled = true;
 
             comboBoxFilter.Visible = true;
             comboBoxFilter.Enabled = true;
-            textBoxFilter.Visible = true;
-            textBoxFilter.Enabled = true;
         }
 
         private void pictureBoxFilter_Click(object sender, EventArgs e)
         {
+            comboBoxFilter.Text = string.Empty;
             pictureBoxFilter.Visible = false;
             pictureBoxFilter.Enabled = false;
 
@@ -303,6 +274,9 @@ namespace Project.V10
             comboBoxFilter.Enabled = false;
             textBoxFilter.Visible = false;
             textBoxFilter.Enabled = false;
+            pictureBoxFilterExecute.Visible = false;
+            pictureBoxFilterExecute.Enabled = false;
+            
 
             pictureBoxMagnifier.Visible = true;
             pictureBoxMagnifier.Enabled = true;
@@ -315,16 +289,146 @@ namespace Project.V10
             int selectedIndex = comboBoxFilter.SelectedIndex;
             if (selectedIndex > -1 && selectedIndex < 2)
             {
-                textBoxFilter.Text = "Длина: ";
+                comboBoxFilter.Text = "Длина: ";
             }
             else if (selectedIndex >= 2 && selectedIndex < 5)
             {
-                textBoxFilter.Text = "Величина: ";
+                comboBoxFilter.Text = "Величина: ";
             }
             else
             {
-                textBoxFilter.Text = "Значение: ";
+                comboBoxFilter.Text = "Значение: ";
             }
+            textBoxFilter.Enabled = true;
+        }
+
+        private void buttonOpenFile_Click(object sender, EventArgs e)
+        {
+            if (openFileDialogTable.ShowDialog() != DialogResult.Cancel)
+            {
+                string filepath = openFileDialogTable.FileName;
+                tableElements.Clear();
+                dataGridViewOrders.Rows.GetTable(filepath);
+                for (int i = 0;  i < dataGridViewOrders.Rows.Count; i++)
+                {
+                    tableElements.Add(new TableElement
+                    {
+                        Key = i + 5
+                    });
+                }
+            }
+        }
+
+        private void textBoxFilter_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (textBoxFilter.Text.Contains('>') || textBoxFilter.Text.Contains('<'))
+            {
+                if(!(e.KeyChar != (char)Keys.Enter && e.KeyChar != (char)Keys.Left && (Char.IsNumber(e.KeyChar) || Char.IsControl(e.KeyChar))))
+                {
+                    e.Handled = true;
+                }
+            }
+            else
+            {
+                if(!(e.KeyChar != (char)Keys.Enter && e.KeyChar != (char)Keys.Left && (e.KeyChar == '>' || e.KeyChar == '<')))
+                {
+                    e.Handled = true;
+                }
+            }
+        }
+
+        private void pictureBoxFilterExecute_Click(object sender, EventArgs e)
+        {
+            if (textBoxFilter.Text.Length > 1)
+            {
+                string filter = textBoxFilter.Text;
+                char comparisonMode = textBoxFilter.Text[0];
+                int.TryParse(filter.Trim('>', '<'), out int filterNumber);
+
+                if (comboBoxFilter.SelectedIndex < 2)
+                {
+                    dataGridViewOrders.Rows.ApplyFilter(filterNumber, comboBoxFilter.SelectedIndex + 1, comparisonMode, DataService.CompareStringLength);
+                }
+                else if (comboBoxFilter.SelectedIndex >= 2 && comboBoxFilter.SelectedIndex < 5)
+                {
+                    dataGridViewOrders.Rows.ApplyFilter(filterNumber, comboBoxFilter.SelectedIndex + 1, comparisonMode, DataService.CompareNumberValue);
+                }
+                else
+                {
+                    dataGridViewOrders.Rows.ApplyFilter(filterNumber, comboBoxFilter.SelectedIndex + 1, comparisonMode, DataService.CompareDoubleValue);
+                }
+            }
+            else
+            {
+                foreach (DataGridViewRow row in dataGridViewOrders.Rows)
+                {
+                    row.Visible = true;
+                }
+            }
+        }
+
+        private void comboBoxFilter_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void buttonChartAddLine_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewOrders.IsEntireColumnSelectedAndIsDigits())
+            {
+                int columnIndex = dataGridViewOrders.SelectedCells[0].ColumnIndex;
+                var cells = dataGridViewOrders.SelectedCells;
+                try
+                {
+                    chartProducts.Series.Add(dataGridViewOrders.Columns[columnIndex].HeaderText);
+                }
+                catch
+                {
+                    MessageBox.Show("Функция с таким названием уже существует", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                chartProducts.Series.Last().ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+                chartProducts.Series.Last().IsVisibleInLegend = true;
+                for (int i = 0; i < dataGridViewOrders.SelectedCells.Count; i++)
+                {
+                    int rowIndex = cells[i].RowIndex;
+                    var orderName = dataGridViewOrders.Rows[rowIndex].Cells[2].Value.ToString();
+                    chartProducts.Series.Last().Points.AddXY(orderName, cells[i].Value);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выделите ячейки с числовыми значениями в одном столбце", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void buttonChartDeleteLine_Click(object sender, EventArgs e)
+        {
+            if (chartProducts.Series.Count != 0)
+            {
+                chartProducts.Series.RemoveAt(chartProducts.Series.Count - 1);
+            }
+        }
+        
+        public DataGridViewSelectedCellCollection GetSelectedCellsValues()
+        {
+            var cells = dataGridViewOrders.SelectedCells;
+            if (cells.Count != 0)
+            {
+                return cells;
+            }
+            else { return null; }
+        }
+
+        private void textBoxSearch_TextChanged(object sender, EventArgs e)
+        {
+            string text = textBoxSearch.Text?.ToLower().Trim();
+            dataGridViewOrders.Rows.Search(text);
+        }
+
+        private void buttonCalculation_Click(object sender, EventArgs e)
+        {
+            CalculationForm calculationForm = new CalculationForm(this);
+            calculationForm.Show();
         }
     }
 }
