@@ -29,24 +29,13 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CalculationForm));
-            this.buttonCalculate = new System.Windows.Forms.Button();
             this.buttonMin = new System.Windows.Forms.Button();
-            this.buttonMax = new System.Windows.Forms.Button();
-            this.buttonMid = new System.Windows.Forms.Button();
             this.buttonCount = new System.Windows.Forms.Button();
             this.buttonSum = new System.Windows.Forms.Button();
+            this.buttonMax = new System.Windows.Forms.Button();
+            this.buttonMid = new System.Windows.Forms.Button();
             this.textBoxResult = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
-            // buttonCalculate
-            // 
-            this.buttonCalculate.Image = ((System.Drawing.Image)(resources.GetObject("buttonCalculate.Image")));
-            this.buttonCalculate.Location = new System.Drawing.Point(12, 81);
-            this.buttonCalculate.Name = "buttonCalculate";
-            this.buttonCalculate.Size = new System.Drawing.Size(60, 60);
-            this.buttonCalculate.TabIndex = 1;
-            this.buttonCalculate.UseVisualStyleBackColor = true;
-            this.buttonCalculate.Click += new System.EventHandler(this.buttonCalculate_Click);
             // 
             // buttonMin
             // 
@@ -57,26 +46,6 @@
             this.buttonMin.Text = "Min";
             this.buttonMin.UseVisualStyleBackColor = true;
             this.buttonMin.Click += new System.EventHandler(this.buttonMin_Click);
-            // 
-            // buttonMax
-            // 
-            this.buttonMax.Location = new System.Drawing.Point(78, 79);
-            this.buttonMax.Name = "buttonMax";
-            this.buttonMax.Size = new System.Drawing.Size(59, 28);
-            this.buttonMax.TabIndex = 2;
-            this.buttonMax.Text = "Max";
-            this.buttonMax.UseVisualStyleBackColor = true;
-            this.buttonMax.Click += new System.EventHandler(this.buttonMax_Click);
-            // 
-            // buttonMid
-            // 
-            this.buttonMid.Location = new System.Drawing.Point(78, 113);
-            this.buttonMid.Name = "buttonMid";
-            this.buttonMid.Size = new System.Drawing.Size(59, 28);
-            this.buttonMid.TabIndex = 2;
-            this.buttonMid.Text = "Среднее";
-            this.buttonMid.UseVisualStyleBackColor = true;
-            this.buttonMid.Click += new System.EventHandler(this.buttonMid_Click);
             // 
             // buttonCount
             // 
@@ -98,6 +67,26 @@
             this.buttonSum.UseVisualStyleBackColor = true;
             this.buttonSum.Click += new System.EventHandler(this.buttonSum_Click);
             // 
+            // buttonMax
+            // 
+            this.buttonMax.Location = new System.Drawing.Point(78, 79);
+            this.buttonMax.Name = "buttonMax";
+            this.buttonMax.Size = new System.Drawing.Size(59, 28);
+            this.buttonMax.TabIndex = 2;
+            this.buttonMax.Text = "Max";
+            this.buttonMax.UseVisualStyleBackColor = true;
+            this.buttonMax.Click += new System.EventHandler(this.buttonMax_Click);
+            // 
+            // buttonMid
+            // 
+            this.buttonMid.Location = new System.Drawing.Point(12, 79);
+            this.buttonMid.Name = "buttonMid";
+            this.buttonMid.Size = new System.Drawing.Size(59, 28);
+            this.buttonMid.TabIndex = 2;
+            this.buttonMid.Text = "Среднее";
+            this.buttonMid.UseVisualStyleBackColor = true;
+            this.buttonMid.Click += new System.EventHandler(this.buttonMid_Click);
+            // 
             // textBoxResult
             // 
             this.textBoxResult.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -112,19 +101,18 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(151, 152);
+            this.ClientSize = new System.Drawing.Size(151, 117);
             this.Controls.Add(this.textBoxResult);
             this.Controls.Add(this.buttonMid);
             this.Controls.Add(this.buttonMax);
             this.Controls.Add(this.buttonSum);
             this.Controls.Add(this.buttonCount);
             this.Controls.Add(this.buttonMin);
-            this.Controls.Add(this.buttonCalculate);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(167, 191);
+            this.MaximumSize = new System.Drawing.Size(167, 156);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(167, 191);
+            this.MinimumSize = new System.Drawing.Size(167, 156);
             this.Name = "CalculationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Статистика";
@@ -136,12 +124,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonCalculate;
         private System.Windows.Forms.Button buttonMin;
-        private System.Windows.Forms.Button buttonMax;
-        private System.Windows.Forms.Button buttonMid;
         private System.Windows.Forms.Button buttonCount;
         private System.Windows.Forms.Button buttonSum;
+        private System.Windows.Forms.Button buttonMax;
+        private System.Windows.Forms.Button buttonMid;
         private System.Windows.Forms.TextBox textBoxResult;
     }
 }

@@ -31,7 +31,7 @@ namespace Project.V10
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             this.groupBoxGridAndPic = new System.Windows.Forms.GroupBox();
             this.splitContainerGridAndPic = new System.Windows.Forms.SplitContainer();
             this.buttonCalculation = new System.Windows.Forms.Button();
@@ -70,7 +70,8 @@ namespace Project.V10
             this.buttonChartDeleteLine = new System.Windows.Forms.Button();
             this.toolTipChart = new System.Windows.Forms.ToolTip(this.components);
             this.textBoxFilter = new System.Windows.Forms.TextBox();
-            this.pictureBoxFilterExecute = new System.Windows.Forms.PictureBox();
+            this.buttonDescription = new System.Windows.Forms.Button();
+            this.buttonFilterMode = new System.Windows.Forms.Button();
             this.rowKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Client = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Product = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -91,7 +92,6 @@ namespace Project.V10
             this.bindingNavigatorTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMagnifier)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFilter)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFilterExecute)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxGridAndPic
@@ -134,7 +134,7 @@ namespace Project.V10
             // 
             this.buttonCalculation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCalculation.Image = ((System.Drawing.Image)(resources.GetObject("buttonCalculation.Image")));
-            this.buttonCalculation.Location = new System.Drawing.Point(477, 272);
+            this.buttonCalculation.Location = new System.Drawing.Point(477, 265);
             this.buttonCalculation.Name = "buttonCalculation";
             this.buttonCalculation.Size = new System.Drawing.Size(60, 60);
             this.buttonCalculation.TabIndex = 0;
@@ -182,8 +182,8 @@ namespace Project.V10
             // 
             // chartProducts
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chartProducts.ChartAreas.Add(chartArea2);
+            chartArea1.Name = "ChartArea1";
+            this.chartProducts.ChartAreas.Add(chartArea1);
             this.chartProducts.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chartProducts.Location = new System.Drawing.Point(0, 0);
             this.chartProducts.Name = "chartProducts";
@@ -462,12 +462,10 @@ namespace Project.V10
             this.comboBoxFilter.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.comboBoxFilter.ItemHeight = 13;
             this.comboBoxFilter.Items.AddRange(new object[] {
-            "Заказчик, Длина:",
-            "Заказ, Длина:",
-            "Цена, Величина:",
-            "Количество, Величина:",
-            "Стоимость, Величина:",
-            "Лакшери, Значение:"});
+            "Цена",
+            "Количество",
+            "Стоимость",
+            "Лакшери"});
             this.comboBoxFilter.Location = new System.Drawing.Point(302, 451);
             this.comboBoxFilter.Name = "comboBoxFilter";
             this.comboBoxFilter.Size = new System.Drawing.Size(130, 21);
@@ -508,27 +506,37 @@ namespace Project.V10
             // textBoxFilter
             // 
             this.textBoxFilter.Enabled = false;
-            this.textBoxFilter.Location = new System.Drawing.Point(432, 451);
+            this.textBoxFilter.Location = new System.Drawing.Point(492, 451);
             this.textBoxFilter.Multiline = true;
             this.textBoxFilter.Name = "textBoxFilter";
-            this.textBoxFilter.Size = new System.Drawing.Size(123, 21);
+            this.textBoxFilter.Size = new System.Drawing.Size(63, 21);
             this.textBoxFilter.TabIndex = 9;
             this.textBoxFilter.Visible = false;
-            this.textBoxFilter.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxFilter_KeyPress);
+            this.textBoxFilter.TextChanged += new System.EventHandler(this.textBoxFilter_TextChanged);
+            this.textBoxFilter.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxFilter_KeyPress_1);
             // 
-            // pictureBoxFilterExecute
+            // buttonDescription
             // 
-            this.pictureBoxFilterExecute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBoxFilterExecute.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxFilterExecute.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBoxFilterExecute.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxFilterExecute.Image")));
-            this.pictureBoxFilterExecute.Location = new System.Drawing.Point(533, 451);
-            this.pictureBoxFilterExecute.Name = "pictureBoxFilterExecute";
-            this.pictureBoxFilterExecute.Size = new System.Drawing.Size(22, 21);
-            this.pictureBoxFilterExecute.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxFilterExecute.TabIndex = 5;
-            this.pictureBoxFilterExecute.TabStop = false;
-            this.pictureBoxFilterExecute.Click += new System.EventHandler(this.pictureBoxFilterExecute_Click);
+            this.buttonDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDescription.Image = global::Project.V10.Properties.Resources.Kassadin_Champie_button;
+            this.buttonDescription.Location = new System.Drawing.Point(767, 13);
+            this.buttonDescription.Name = "buttonDescription";
+            this.buttonDescription.Size = new System.Drawing.Size(70, 60);
+            this.buttonDescription.TabIndex = 0;
+            this.buttonDescription.UseVisualStyleBackColor = true;
+            this.buttonDescription.Click += new System.EventHandler(this.buttonDescription_Click);
+            // 
+            // buttonFilterMode
+            // 
+            this.buttonFilterMode.Enabled = false;
+            this.buttonFilterMode.Location = new System.Drawing.Point(438, 451);
+            this.buttonFilterMode.Name = "buttonFilterMode";
+            this.buttonFilterMode.Size = new System.Drawing.Size(48, 21);
+            this.buttonFilterMode.TabIndex = 10;
+            this.buttonFilterMode.Text = ">";
+            this.buttonFilterMode.UseVisualStyleBackColor = true;
+            this.buttonFilterMode.Visible = false;
+            this.buttonFilterMode.Click += new System.EventHandler(this.buttonFilterMode_Click);
             // 
             // rowKey
             // 
@@ -581,7 +589,6 @@ namespace Project.V10
             this.PictureAddress.HeaderText = "PictureAddress";
             this.PictureAddress.Name = "PictureAddress";
             this.PictureAddress.ReadOnly = true;
-            this.PictureAddress.Visible = false;
             this.PictureAddress.Width = 103;
             // 
             // FormMain
@@ -589,21 +596,22 @@ namespace Project.V10
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(928, 483);
-            this.Controls.Add(this.textBoxSearch);
-            this.Controls.Add(this.pictureBoxFilterExecute);
             this.Controls.Add(this.buttonChartDeleteLine);
             this.Controls.Add(this.buttonChartAddLine);
             this.Controls.Add(this.buttonPictureNotVisible);
             this.Controls.Add(this.buttonPictureVisible);
             this.Controls.Add(this.bindingNavigatorTable);
+            this.Controls.Add(this.buttonDescription);
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonSaveFile);
             this.Controls.Add(this.buttonOpenFile);
             this.Controls.Add(this.groupBoxGridAndPic);
             this.Controls.Add(this.pictureBoxMagnifier);
             this.Controls.Add(this.pictureBoxFilter);
-            this.Controls.Add(this.textBoxFilter);
+            this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.comboBoxFilter);
+            this.Controls.Add(this.buttonFilterMode);
+            this.Controls.Add(this.textBoxFilter);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -621,7 +629,6 @@ namespace Project.V10
             this.bindingNavigatorTable.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMagnifier)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFilter)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFilterExecute)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -667,7 +674,8 @@ namespace Project.V10
         private System.Windows.Forms.ToolTip toolTipChart;
         private System.Windows.Forms.Button buttonCalculation;
         private System.Windows.Forms.TextBox textBoxFilter;
-        private System.Windows.Forms.PictureBox pictureBoxFilterExecute;
+        private System.Windows.Forms.Button buttonDescription;
+        private System.Windows.Forms.Button buttonFilterMode;
         private System.Windows.Forms.DataGridViewTextBoxColumn rowKey;
         private System.Windows.Forms.DataGridViewTextBoxColumn Client;
         private System.Windows.Forms.DataGridViewTextBoxColumn Product;

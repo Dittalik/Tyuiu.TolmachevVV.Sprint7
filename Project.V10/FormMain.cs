@@ -20,6 +20,7 @@ namespace Project.V10
     public partial class FormMain : Form
     {
         private BindingSource bindingSource = new BindingSource();
+        private int compMode = 0;
 
         private Bitmap defaultBitmap = Properties.Resources.picture_add;
         private static Bitmap[] defaultBitmaps = new Bitmap[]
@@ -43,7 +44,6 @@ namespace Project.V10
             openFileDialogTable.Filter = "Значения разделённые точками(*.csv)|*.csv|Все файлы(*.*)|*.*";
             openFileDialogPicture.Filter = "Файлы изображений(*.png,*.jpg, *.gif)|*.png;*.jpg;*.gif|Все файлы(*.*)|*.*";
             saveFileDialogTable.Filter = "Значения разделённые точками(*.csv)|*.csv|Все файлы(*.*)|*.*";
-
         }
         private void InitializeFormData()
         {
@@ -211,7 +211,7 @@ namespace Project.V10
         private void bindingNavigatorMoveLastItem_Click(object sender, EventArgs e)
         {
             dataGridViewOrders.ClearSelection();
-            dataGridViewOrders.Rows[bindingSource.Position].Selected = true;
+            dataGridViewOrders.Rows[bindingSource.Position--].Selected = true;
         }
 
         private void bindingNavigatorMoveFirstItem_Click(object sender, EventArgs e)
@@ -257,8 +257,8 @@ namespace Project.V10
             pictureBoxFilter.Visible = true;
             pictureBoxFilter.Enabled = true;
             textBoxFilter.Visible = true;
-            pictureBoxFilterExecute.Visible = true;
-            pictureBoxFilterExecute.Enabled = true;
+            buttonFilterMode.Visible = true;
+            buttonFilterMode.Enabled = true;
 
             comboBoxFilter.Visible = true;
             comboBoxFilter.Enabled = true;
@@ -274,9 +274,9 @@ namespace Project.V10
             comboBoxFilter.Enabled = false;
             textBoxFilter.Visible = false;
             textBoxFilter.Enabled = false;
-            pictureBoxFilterExecute.Visible = false;
-            pictureBoxFilterExecute.Enabled = false;
-            
+            buttonFilterMode.Visible = false;
+            buttonFilterMode.Enabled = false;
+
 
             pictureBoxMagnifier.Visible = true;
             pictureBoxMagnifier.Enabled = true;
@@ -286,19 +286,6 @@ namespace Project.V10
 
         private void comboBoxFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int selectedIndex = comboBoxFilter.SelectedIndex;
-            if (selectedIndex > -1 && selectedIndex < 2)
-            {
-                comboBoxFilter.Text = "Длина: ";
-            }
-            else if (selectedIndex >= 2 && selectedIndex < 5)
-            {
-                comboBoxFilter.Text = "Величина: ";
-            }
-            else
-            {
-                comboBoxFilter.Text = "Значение: ";
-            }
             textBoxFilter.Enabled = true;
         }
 
@@ -308,13 +295,24 @@ namespace Project.V10
             {
                 string filepath = openFileDialogTable.FileName;
                 tableElements.Clear();
-                dataGridViewOrders.Rows.GetTable(filepath);
+                dataGridViewOrders.GetTable(filepath);
                 for (int i = 0;  i < dataGridViewOrders.Rows.Count; i++)
                 {
-                    tableElements.Add(new TableElement
+                    if (dataGridViewOrders.Rows[i].Cells[7].Value == null)
                     {
-                        Key = i + 5
-                    });
+                        tableElements.Add(new TableElement
+                        {
+                            Key = i + 5
+                        });
+                    }
+                    else
+                    {
+                        tableElements.Add(new TableElement
+                        {
+                            Key = i + 5,
+                            Path = dataGridViewOrders.Rows[i].Cells[7].Value?.ToString()
+                        });
+                    }
                 }
             }
         }
@@ -429,6 +427,75 @@ namespace Project.V10
         {
             CalculationForm calculationForm = new CalculationForm(this);
             calculationForm.Show();
+        }
+
+        private void buttonDescription_Click(object sender, EventArgs e)
+        {
+            FormDescription formDescription = new FormDescription();
+            formDescription.ShowDialog();
+        }
+
+        private void buttonFilterMode_Click(object sender, EventArgs e)
+        {
+            if (compMode == 0)
+            {
+                compMode = 1;
+                buttonFilterMode.Text = "<";
+            }
+            else
+            {
+                compMode = 0;
+                buttonFilterMode.Text = ">";
+            }
+            textBoxFilter.Text += " ";
+            textBoxFilter.Text = textBoxFilter.Text.Trim();
+        }
+
+        private void textBoxFilter_TextChanged(object sender, EventArgs e)
+        {
+            string text = textBoxFilter.Text;
+            if (!string.IsNullOrEmpty(text))
+            {
+                if (int.TryParse(text, out int filter))
+                {
+                    int columnIndex = 0;
+                    switch (comboBoxFilter.SelectedIndex)
+                    {
+                        case 0: { columnIndex = 3; } break;
+                        case 1: { columnIndex = 4; } break;
+                        case 2: { columnIndex = 5; } break;
+                        case 3: { columnIndex = 6; } break;
+                    }
+                    foreach (DataGridViewRow row in dataGridViewOrders.Rows)
+                    {
+                        string cellValue = row.Cells[columnIndex].Value?.ToString().Replace('.', ',');
+                        if (!string.IsNullOrEmpty(cellValue))
+                        {
+                            bool isVisible = DataService.Comparison(Convert.ToDouble(cellValue), filter, compMode);
+                            row.Visible = isVisible;
+                        }
+                        else
+                        {
+                            row.Visible = false;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                foreach (DataGridViewRow row in dataGridViewOrders.Rows)
+                {
+                    row.Visible = true;
+                }
+            }
+        }
+
+        private void textBoxFilter_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            if (!(Char.IsDigit(e.KeyChar) || Char.IsControl(e.KeyChar)))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

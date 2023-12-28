@@ -13,7 +13,6 @@ namespace Project.V10
 {
     public partial class CalculationForm : Form
     {
-        int calculationMode;
         private FormMain mainForm;
         public CalculationForm(FormMain mainForm)
         {
@@ -24,35 +23,46 @@ namespace Project.V10
 
         private void buttonSum_Click(object sender, EventArgs e)
         {
-            calculationMode = 0;
+            DataGridViewSelectedCellCollection cells = mainForm?.GetSelectedCellsValues();
+            if (cells != null)
+            {
+                textBoxResult.Text = DataService.CalculateCells(cells, 0).ToString();
+            }
         }
 
         private void buttonCount_Click(object sender, EventArgs e)
         {
-            calculationMode = 1;
+            DataGridViewSelectedCellCollection cells = mainForm?.GetSelectedCellsValues();
+            if (cells != null)
+            {
+                textBoxResult.Text = DataService.CalculateCells(cells, 1).ToString();
+            }
         }
 
         private void buttonMin_Click(object sender, EventArgs e)
         {
-            calculationMode = 2;
+            DataGridViewSelectedCellCollection cells = mainForm?.GetSelectedCellsValues();
+            if (cells != null)
+            {
+                textBoxResult.Text = DataService.CalculateCells(cells, 2).ToString();
+            }
         }
 
         private void buttonMax_Click(object sender, EventArgs e)
         {
-            calculationMode = 3;
+            DataGridViewSelectedCellCollection cells = mainForm?.GetSelectedCellsValues();
+            if (cells != null)
+            {
+                textBoxResult.Text = DataService.CalculateCells(cells, 3).ToString();
+            }
         }
 
         private void buttonMid_Click(object sender, EventArgs e)
         {
-            calculationMode = 4;
-        }
-
-        private void buttonCalculate_Click(object sender, EventArgs e)
-        {
             DataGridViewSelectedCellCollection cells = mainForm?.GetSelectedCellsValues();
             if (cells != null)
             {
-                textBoxResult.Text = DataService.CalculateCells(cells, calculationMode).ToString();
+                textBoxResult.Text = DataService.CalculateCells(cells, 4).ToString();
             }
         }
     }

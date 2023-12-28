@@ -7,8 +7,9 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.CompilerServices;
-using static System.Net.Mime.MediaTypeNames;
 using System.Windows.Forms.VisualStyles;
+using System.Runtime.InteropServices;
+using System.Globalization;
 
 namespace Project.V10.Lib
 {
@@ -135,7 +136,11 @@ namespace Project.V10.Lib
                         double result = 0;
                         foreach(DataGridViewCell cell in selectedCells)
                         {
-                            result += Convert.ToDouble(cell.Value);
+                            if (double.TryParse(cell.Value.ToString(), out double doubleValue))
+                            {
+                                result += doubleValue;
+                            }
+                            else return double.NaN;
                         }
                         return result;
                     }
@@ -146,12 +151,16 @@ namespace Project.V10.Lib
                 case 2:
                     {
                         double min = double.MaxValue;
-                        foreach(DataGridViewCell cell in selectedCells)
+                        foreach (DataGridViewCell cell in selectedCells)
                         {
-                            if (Convert.ToDouble(cell.Value) < min)
+                            if (double.TryParse(cell.Value.ToString(), out double doubleValue))
                             {
-                                min = Convert.ToDouble(cell.Value);
+                                if (doubleValue < min)
+                                {
+                                    min = doubleValue;
+                                }
                             }
+                            else return double.NaN;
                         }
                         return min;
                     }
@@ -160,10 +169,14 @@ namespace Project.V10.Lib
                         double max = double.MinValue;
                         foreach(DataGridViewCell cell in selectedCells)
                         {
-                            if(Convert.ToDouble(cell.Value)  > max)
+                            if (double.TryParse(cell.Value.ToString(), out double doubleValue))
                             {
-                                max = Convert.ToDouble(cell.Value);
+                                if (doubleValue > max)
+                                {
+                                    max = doubleValue;
+                                }
                             }
+                            else return double.NaN;
                         }
                         return max;
                     }
@@ -189,27 +202,26 @@ namespace Project.V10.Lib
                 {
                     return false;
                 }
-                if(!(cell.Value is double || cell.Value is int))
+                if(!(cell.Value is double | cell.Value is int | double.TryParse(cell.Value.ToString(), out double doodle)))
                 {
                     return false;
                 }
             }
             return true;
         }
-        public static DataGridViewRowCollection GetTable(this DataGridViewRowCollection rows, string filepath)
+        public static DataGridViewRowCollection GetTable(this DataGridView dataGrid, string filepath)
         {
             string[] content = File.ReadAllLines(filepath);
-            string[,] table = new string[content.Length, content[0].Split(';').Length];
-            for (int i = 0; i < table.GetLength(0); i++)
+            dataGrid.RowCount = content.Length;
+            var rows = dataGrid.Rows;
+            List<string[]> table = new List<string[]>();
+            for (int i = 0; i < content.Length; i++)
             {
-                for (int j = 0; j < table.GetLength(1); j++)
-                {
-                    table[i, j] = content[i].Split(';')[j];
-                }
+                table.Add(content[i].Split(';'));
             }
             for (int i = 0; i <  rows.Count; i++)
             {
-                for (int j = 0; j < content[0].Split(';').Length; j++)
+                for (int j = 0; j < rows[0].Cells.Count; j++)
                 {
                     if (j == 0)
                     {
@@ -217,7 +229,7 @@ namespace Project.V10.Lib
                     }
                     else
                     {
-                        rows[i].Cells[j].Value = table[i, j - 1];
+                        rows[i].Cells[j].Value = table[i][j - 1];
                     }
                 }
             }
@@ -241,6 +253,18 @@ namespace Project.V10.Lib
                 }
             }
             File.WriteAllLines(filepath, content, Encoding.UTF8);
+        }
+        public static bool Comparison(double value, int filter, int mode)
+        {
+            switch (mode)
+            {
+                case 0:
+                    return value > filter;
+                case 1:
+                    return value < filter;
+                default:
+                    return false;
+            }
         }
     }
     public class TableElement
